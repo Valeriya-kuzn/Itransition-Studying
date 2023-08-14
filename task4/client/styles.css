@@ -1,0 +1,230 @@
+@import url("https://fonts.googleapis.com/css2?family=Leckerli+One&family=Nunito:wght@400;700&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+nav, footer, header, aside {
+  display: block;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+ul {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-bottom: 0;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+footer .footer-block, main .main-section, header .header-panel {
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 1440px;
+}
+
+footer .footer-block, main .users-table, main .main-section .users-tubular .button, main .main-section .users-tubular, header .header-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer .footer-block .footer-text, footer .footer-block .footer-year, main .users-table, header .header-panel .log-out {
+  font-family: Nunito, cursive;
+  font-size: 16px;
+  color: rgb(128, 93, 93);
+}
+
+header {
+  background: #EBB;
+  width: 100%;
+  height: 60px;
+}
+header .header-panel {
+  justify-content: space-between;
+  height: 100%;
+  width: 80%;
+}
+header .header-panel .logo {
+  font-size: 40px;
+  color: white;
+  font-family: Leckerli One, cursive;
+}
+header .header-panel .logo:hover {
+  color: rgb(247, 235, 230);
+  cursor: pointer;
+}
+header .header-panel .log-out {
+  color: white;
+  font-weight: 700;
+}
+header .header-panel .log-out:hover {
+  color: rgb(247, 235, 230);
+  cursor: pointer;
+}
+
+main {
+  background: white;
+  width: 100%;
+  min-height: 80vh;
+}
+main .main-section .users-tubular {
+  padding: 40px 0;
+}
+main .main-section .users-tubular .button {
+  width: 100px;
+  height: 35px;
+  margin: 0 30px;
+  border: 2px solid rgb(238, 187, 187);
+  border-radius: 100px;
+  font-family: Nunito, cursive;
+  color: #EBB;
+  font-size: 16px;
+  font-weight: 700;
+}
+main .main-section .users-tubular .button:hover {
+  background: #EBB;
+  box-shadow: 0px 0px 15px 5px rgba(238, 187, 187, 0.467);
+  color: white;
+  cursor: pointer;
+}
+main .users-table {
+  flex-direction: column;
+}
+main .users-table input {
+  display: inline-block;
+  opacity: 0;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+main .users-table input:hover {
+  cursor: pointer;
+}
+main .users-table tr {
+  height: 50px;
+}
+main .users-table thead {
+  font-weight: 700;
+}
+main .users-table thead td {
+  border-bottom: 1px solid rgba(128, 93, 93, 0.548);
+}
+main .users-table td {
+  height: 40px;
+  align-items: center;
+  text-align: center;
+  border-left: 25px solid white;
+  border-right: 25px solid white;
+}
+main .users-table .checkbox {
+  width: 90px;
+}
+main .users-table .id, main .users-table .status {
+  width: 120px;
+}
+main .users-table .name, main .users-table .mail, main .users-table .registration-date, main .users-table .last-login-date {
+  width: 220px;
+}
+
+footer {
+  width: 100%;
+  height: 100px;
+  background: #EBB;
+}
+footer .footer-block {
+  flex-direction: column;
+  height: 100%;
+}
+footer .footer-block .footer-text, footer .footer-block .footer-year {
+  color: white;
+  padding: 5px 0;
+}
+
+label::before {
+  content: "";
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  border: 2px solid #EBB;
+  border-radius: 0.25em;
+  margin: 10px;
+  z-index: 0;
+}
+
+input[type=checkbox]:checked + label::after {
+  content: "";
+  display: inline-block;
+  position: relative;
+  transform: rotate(35deg);
+  height: 13px;
+  width: 7px;
+  right: 22px;
+  bottom: 15px;
+  z-index: 1;
+  border-bottom: 3px solid rgb(128, 93, 93);
+  border-right: 3px solid rgb(128, 93, 93);
+}
+
+/*# sourceMappingURL=styles.css.map */
