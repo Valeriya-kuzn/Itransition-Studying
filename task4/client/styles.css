@@ -81,19 +81,38 @@ h1, h2, h3, h4, h5, h6 {
 footer .footer-block, main .main-section, header .header-panel {
   margin: 0 auto;
   padding: 0 20px;
-  width: 1440px;
+  max-width: 1440px;
 }
 
-footer .footer-block, main .users-table, main .main-section .users-tubular .button, main .main-section .users-tubular, header .header-panel {
+main .main-section-log, footer .footer-block, main .users-table, main .main-section .users-tubular, header .header-panel, .button {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-footer .footer-block .footer-text, footer .footer-block .footer-year, main .users-table, header .header-panel .log-out {
+main .main-section-log .main-form .main-form--signup, main .main-section-log .main-form h2, main .main-section-log .main-form p, footer .footer-block .footer-text, footer .footer-block .footer-year, main .users-table, header .header-panel a {
   font-family: Nunito, cursive;
   font-size: 16px;
   color: rgb(128, 93, 93);
+}
+
+.button {
+  width: 100px;
+  height: 35px;
+  margin: 0 30px;
+  border: 2px solid rgb(238, 187, 187);
+  border-radius: 100px;
+  font-family: Nunito, cursive;
+  color: #EBB;
+  background: white;
+  font-size: 16px;
+  font-weight: 700;
+}
+.button:hover {
+  background: #EBB;
+  box-shadow: 0px 0px 15px 5px rgba(238, 187, 187, 0.467);
+  color: white;
+  cursor: pointer;
 }
 
 header {
@@ -115,11 +134,11 @@ header .header-panel .logo:hover {
   color: rgb(247, 235, 230);
   cursor: pointer;
 }
-header .header-panel .log-out {
+header .header-panel a {
   color: white;
   font-weight: 700;
 }
-header .header-panel .log-out:hover {
+header .header-panel a:hover {
   color: rgb(247, 235, 230);
   cursor: pointer;
 }
@@ -131,23 +150,6 @@ main {
 }
 main .main-section .users-tubular {
   padding: 40px 0;
-}
-main .main-section .users-tubular .button {
-  width: 100px;
-  height: 35px;
-  margin: 0 30px;
-  border: 2px solid rgb(238, 187, 187);
-  border-radius: 100px;
-  font-family: Nunito, cursive;
-  color: #EBB;
-  font-size: 16px;
-  font-weight: 700;
-}
-main .main-section .users-tubular .button:hover {
-  background: #EBB;
-  box-shadow: 0px 0px 15px 5px rgba(238, 187, 187, 0.467);
-  color: white;
-  cursor: pointer;
 }
 main .users-table {
   flex-direction: column;
@@ -161,6 +163,29 @@ main .users-table input {
 }
 main .users-table input:hover {
   cursor: pointer;
+}
+main .users-table label::before {
+  content: "";
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  border: 2px solid #EBB;
+  border-radius: 0.25em;
+  margin: 10px;
+  z-index: 0;
+}
+main .users-table input[type=checkbox]:checked + label::after {
+  content: "";
+  display: inline-block;
+  position: relative;
+  transform: rotate(35deg);
+  height: 13px;
+  width: 7px;
+  right: 22px;
+  bottom: 15px;
+  z-index: 1;
+  border-bottom: 3px solid rgb(128, 93, 93);
+  border-right: 3px solid rgb(128, 93, 93);
 }
 main .users-table tr {
   height: 50px;
@@ -202,29 +227,56 @@ footer .footer-block .footer-text, footer .footer-block .footer-year {
   padding: 5px 0;
 }
 
-label::before {
-  content: "";
-  display: inline-block;
-  width: 17px;
-  height: 17px;
-  border: 2px solid #EBB;
-  border-radius: 0.25em;
-  margin: 10px;
-  z-index: 0;
+main .main-section-log {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 5vw;
 }
-
-input[type=checkbox]:checked + label::after {
-  content: "";
-  display: inline-block;
-  position: relative;
-  transform: rotate(35deg);
-  height: 13px;
-  width: 7px;
-  right: 22px;
-  bottom: 15px;
-  z-index: 1;
-  border-bottom: 3px solid rgb(128, 93, 93);
-  border-right: 3px solid rgb(128, 93, 93);
+main .main-section-log .main-picture img {
+  width: 45vw;
+  min-width: 360px;
+}
+main .main-section-log .main-form {
+  min-width: 300px;
+  width: 30vw;
+  box-shadow: 0px 0px 30px 15px rgba(238, 187, 187, 0.467);
+  padding: 20px 35px;
+  margin: 30px 0;
+}
+main .main-section-log .main-form h2, main .main-section-log .main-form p {
+  margin: 10px 0;
+}
+main .main-section-log .main-form h2 {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 25px;
+}
+main .main-section-log .main-form .button-sign {
+  display: flex;
+  justify-content: space-around;
+  margin: 25px 0;
+}
+main .main-section-log .main-form input {
+  height: 35px;
+  width: 100%;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid #EBB;
+}
+main .main-section-log .main-form .main-form--signup {
+  background: white;
+  font-weight: 700;
+  color: #EBB;
+  margin-left: 15px;
+}
+main .main-section-log .main-form .main-form--signup:hover {
+  color: rgb(128, 93, 93);
+}
+main .main-section-log .main-form div:last-child {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /*# sourceMappingURL=styles.css.map */

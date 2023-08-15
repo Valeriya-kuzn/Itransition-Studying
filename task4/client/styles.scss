@@ -4,7 +4,7 @@
 %align {
     margin: 0 auto;
     padding: 0 20px;
-    width: 1440px;
+    max-width: 1440px;
 }
 
 %flexing {
@@ -17,6 +17,30 @@
     font-family: Nunito, cursive;
     font-size: 16px;
     color: rgb(128, 93, 93);
+}
+
+%button-style {
+    @extend %flexing;
+    width: 100px;
+    height: 35px;
+    margin: 0 30px;
+    border: 2px solid rgb(238, 187, 187);
+    border-radius: 100px;
+    font-family: Nunito, cursive;
+    color: #EBB;
+    background: white;
+    font-size: 16px;
+    font-weight: 700;
+    &:hover {
+        background: #EBB;
+        box-shadow: 0px 0px 15px 5px rgba(238, 187, 187, 0.467);
+        color: white;
+        cursor: pointer;
+    }
+}
+
+.button {
+    @extend %button-style;
 }
 
 header {
@@ -38,7 +62,7 @@ header {
                     cursor: pointer;
                 }
         }
-        .log-out {
+        a {
             @extend %table-font;
             color: white;
             font-weight: 700;
@@ -59,24 +83,6 @@ main {
         .users-tubular {
             @extend %flexing;
             padding: 40px 0;
-            .button {
-                @extend %flexing;
-                width: 100px;
-                height: 35px;
-                margin: 0 30px;
-                border: 2px solid rgb(238, 187, 187);
-                border-radius: 100px;
-                font-family: Nunito, cursive;
-                color: #EBB;
-                font-size: 16px;
-                font-weight: 700;
-                &:hover {
-                    background: #EBB;
-                    box-shadow: 0px 0px 15px 5px rgba(238, 187, 187, 0.467);
-                    color: white;
-                    cursor: pointer;
-                }
-            }
         }
     }
     .users-table {
@@ -92,6 +98,29 @@ main {
             &:hover {
                 cursor: pointer;
             }
+        }
+        label::before {
+            content: '';
+            display: inline-block;
+            width: 17px;
+            height: 17px;
+            border: 2px solid #EBB;
+            border-radius: 0.25em;
+            margin: 10px;
+            z-index: 0;
+        }
+        input[type=checkbox]:checked + label::after {
+            content: '';
+            display: inline-block;
+            position: relative;
+            transform: rotate(35deg);
+            height: 13px;
+            width: 7px;
+            right: 22px;
+            bottom: 15px;
+            z-index: 1;
+            border-bottom: 3px solid rgb(128, 93, 93);
+            border-right: 3px solid rgb(128, 93, 93);
         }
         tr{
             height: 50px;
@@ -138,27 +167,62 @@ footer {
     }
 }
 
-label::before {
-    content: '';
-    display: inline-block;
-    width: 17px;
-    height: 17px;
-    border: 2px solid #EBB;
-    border-radius: 0.25em;
-    margin: 10px;
-    z-index: 0;
-}
-
-input[type=checkbox]:checked + label::after {
-    content: '';
-    display: inline-block;
-    position: relative;
-    transform: rotate(35deg);
-    height: 13px;
-    width: 7px;
-    right: 22px;
-    bottom: 15px;
-    z-index: 1;
-    border-bottom: 3px solid rgb(128, 93, 93);
-    border-right: 3px solid rgb(128, 93, 93);
+//log in page
+main {
+    .main-section-log {
+        @extend %flexing;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 0 5vw;
+        .main-picture {
+            img {
+                width: 45vw;
+                min-width: 360px;
+            }
+        }
+        .main-form {
+            min-width: 300px;
+            width: 30vw;
+            box-shadow: 0px 0px 30px 15px rgba(238, 187, 187, 0.467);
+            padding: 20px 35px;
+            margin: 30px 0;
+            h2, p {
+                @extend %table-font;
+                margin: 10px 0;
+            }
+            h2 {
+                font-size: 30px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 25px;
+            }
+            .button-sign {
+                display: flex;
+                justify-content: space-around;
+                margin: 25px 0;
+            }
+            input {
+                height: 35px;
+                width: 100%;
+                padding: 0 10px;
+                border-radius: 5px;
+                border: 1px solid #EBB;
+            }
+            .main-form--signup{
+                @extend %table-font;
+                background: white;
+                font-weight: 700;
+                color: #EBB;
+                margin-left: 15px;
+                &:hover {
+                    color: rgb(128, 93, 93);
+                }
+            }
+            div:last-child {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+    }
 }
