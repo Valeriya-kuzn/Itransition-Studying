@@ -29,7 +29,10 @@ input::-ms-clear{display: none;}
 button{cursor: pointer;}
 button::-moz-focus-inner {padding:0;border:0;}
 a, a:visited{text-decoration: none;}
-a:hover{text-decoration: none;}
+a, a:hover {
+    text-decoration: none;
+    color: inherit;
+}
 ul li{list-style: none;}
 ul { margin-block-start: 0; margin-block-end: 0; margin-bottom: 0;}
 img{vertical-align: top;}

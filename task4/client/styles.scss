@@ -167,7 +167,7 @@ footer {
     }
 }
 
-//log in page
+//log in & sign up pages
 main {
     .main-section-log {
         @extend %flexing;
@@ -180,6 +180,8 @@ main {
                 min-width: 360px;
             }
         }
+    }
+    .main-section{
         .main-form {
             min-width: 300px;
             width: 30vw;
@@ -208,7 +210,7 @@ main {
                 border-radius: 5px;
                 border: 1px solid #EBB;
             }
-            .main-form--signup{
+            .button-signup{
                 @extend %table-font;
                 background: white;
                 font-weight: 700;
@@ -224,5 +226,10 @@ main {
                 flex-wrap: wrap;
             }
         }
+    }
+    .main-section-signup {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

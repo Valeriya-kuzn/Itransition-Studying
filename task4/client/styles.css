@@ -55,8 +55,9 @@ a, a:visited {
   text-decoration: none;
 }
 
-a:hover {
+a, a:hover {
   text-decoration: none;
+  color: inherit;
 }
 
 ul li {
@@ -90,7 +91,7 @@ main .main-section-log, footer .footer-block, main .users-table, main .main-sect
   justify-content: center;
 }
 
-main .main-section-log .main-form .main-form--signup, main .main-section-log .main-form h2, main .main-section-log .main-form p, footer .footer-block .footer-text, footer .footer-block .footer-year, main .users-table, header .header-panel a {
+main .main-section .main-form .button-signup, main .main-section .main-form h2, main .main-section .main-form p, footer .footer-block .footer-text, footer .footer-block .footer-year, main .users-table, header .header-panel a {
   font-family: Nunito, cursive;
   font-size: 16px;
   color: rgb(128, 93, 93);
@@ -236,47 +237,52 @@ main .main-section-log .main-picture img {
   width: 45vw;
   min-width: 360px;
 }
-main .main-section-log .main-form {
+main .main-section .main-form {
   min-width: 300px;
   width: 30vw;
   box-shadow: 0px 0px 30px 15px rgba(238, 187, 187, 0.467);
   padding: 20px 35px;
   margin: 30px 0;
 }
-main .main-section-log .main-form h2, main .main-section-log .main-form p {
+main .main-section .main-form h2, main .main-section .main-form p {
   margin: 10px 0;
 }
-main .main-section-log .main-form h2 {
+main .main-section .main-form h2 {
   font-size: 30px;
   font-weight: 700;
   text-align: center;
   margin-bottom: 25px;
 }
-main .main-section-log .main-form .button-sign {
+main .main-section .main-form .button-sign {
   display: flex;
   justify-content: space-around;
   margin: 25px 0;
 }
-main .main-section-log .main-form input {
+main .main-section .main-form input {
   height: 35px;
   width: 100%;
   padding: 0 10px;
   border-radius: 5px;
   border: 1px solid #EBB;
 }
-main .main-section-log .main-form .main-form--signup {
+main .main-section .main-form .button-signup {
   background: white;
   font-weight: 700;
   color: #EBB;
   margin-left: 15px;
 }
-main .main-section-log .main-form .main-form--signup:hover {
+main .main-section .main-form .button-signup:hover {
   color: rgb(128, 93, 93);
 }
-main .main-section-log .main-form div:last-child {
+main .main-section .main-form div:last-child {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+main .main-section-signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*# sourceMappingURL=styles.css.map */
