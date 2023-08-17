@@ -11,25 +11,25 @@
     <body>
         <header>
             <div class="header-panel">
-                <h1 class="logo">Stay alive</h1>
+                <h1><a href="/main" class="logo">Stay alive</a></h1>
             </div>
         </header>
-        <main>
+        <main class="registration">
             <div class="main-section main-section-signup">
                 <div class="main-form main-form-signup">
                     <h2>Sign up</h2>
-                    <form action="#" method="post" enctype="multipart/form-data">
+                    <form action="/registration" method="post" enctype="application/x-www-form-urlencoded">
                         <div>
                             <p>Your name</p>
-                            <input type="text" name="usermail">
+                            <input type="text" name="name">
                         </div>
                         <div>
                             <p>E-mail</p>
-                            <input type="text" name="usermail">
+                            <input type="text" name="email">
                         </div>
                         <div>
                             <p>Password</p>
-                            <input type="password" name="userpassword">
+                            <input type="password" name="password">
                         </div>
                         <div class="button-sign"><button type="submit" class="button">Join</button></div>
                     </form>
