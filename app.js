@@ -121,7 +121,7 @@ app.post('/update-status', (req, res) => {
       const status = action === 'inactive' ? 'inactive' : 'active';
 
       connection.query(
-          'UPDATE users SET status = $1 WHERE id IN ($2)',
+          'UPDATE users SET status = $1 WHERE id = ANY($2::int[])',
           [status, userIds],
           (err, results) => {
               if (err) {
@@ -145,7 +145,7 @@ app.post('/delete-users', (req, res) => {
 
   if (Array.isArray(userIds) && userIds.length > 0) {
       connection.query(
-          'DELETE FROM users WHERE id IN ($1)',
+          'DELETE FROM users WHERE id = ANY($1::int[])',
           [userIds],
           (err, results) => {
               if (err) {
