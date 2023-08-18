@@ -35,7 +35,7 @@ app.post('/registration', (req, res) => {
   
   if (name && email && password) {
       connection.query(
-          'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+          'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
           [name, email, password],
           (err, results) => {
               if (err) {
@@ -57,9 +57,10 @@ app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
   connection.query(
-    'SELECT * FROM users WHERE email = ?',
+    'SELECT * FROM users WHERE email = $1',
     [email],
-    (err, results) => {
+    (err, res) => {
+      results = res.rows;
       if (err) {
         console.error(err);
         res.status(500).send('Error request');
@@ -70,7 +71,7 @@ app.post('/login', (req, res) => {
           const user = results[0];
           if (user.password === password) {
             connection.query(
-              'UPDATE users SET last_login_date = NOW() WHERE id = ?',
+              'UPDATE users SET last_login_date = NOW() WHERE id = $1',
               [user.id]
             );
             if (user.status === 'active') {
@@ -95,7 +96,7 @@ app.get('/main', (req, res) => {
         console.error(err);
         res.status(500).send('Error request');
       } else {
-        res.render('main', { users: results });
+        res.render('main', { users: results.rows });
       }
     });
   } else if (req.session.user && req.session.user.status !== 'active') {
@@ -120,7 +121,7 @@ app.post('/update-status', (req, res) => {
       const status = action === 'inactive' ? 'inactive' : 'active';
 
       connection.query(
-          'UPDATE users SET status = ? WHERE id IN (?)',
+          'UPDATE users SET status = $1 WHERE id IN ($2)',
           [status, userIds],
           (err, results) => {
               if (err) {
@@ -144,7 +145,7 @@ app.post('/delete-users', (req, res) => {
 
   if (Array.isArray(userIds) && userIds.length > 0) {
       connection.query(
-          'DELETE FROM users WHERE id IN (?)',
+          'DELETE FROM users WHERE id IN ($1)',
           [userIds],
           (err, results) => {
               if (err) {
@@ -175,16 +176,6 @@ const connection = new Client({
 })
 
 connection.connect();
-
-connection.query('SELECT * FROM users', (error, results) => {
-  if (error) {
-    console.error('Error executing query:', error);
-    return;
-  }
-  console.log('Query results:', results.rows);
-  
-  connection.end();
-});
 
 
 // const mysql = require('mysql');
