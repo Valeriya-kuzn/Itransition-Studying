@@ -166,36 +166,25 @@ app.post('/delete-users', (req, res) => {
 
 const { Client } = require("pg");
  
-// const connection = new Client({
-//   user: 'root',
-//   host: 'dpg-cjfo5v7ut75s73cpss4g-a.oregon-postgres.render.com',
-//   database: 'mydatabase_ku2q',
-//   password: 'NyfHdWrVnfe9goCikHP5aPtLT0mrtPbA',
-//   port: 5432
-// })
+const connection = new Client({
+  user: 'root',
+  host: 'dpg-cjfo5v7ut75s73cpss4g-a.oregon-postgres.render.com',
+  database: 'mydatabase_ku2q',
+  password: 'NyfHdWrVnfe9goCikHP5aPtLT0mrtPbA',
+  port: 5432
+})
 
-// connection.connect();
+connection.connect();
 
-const connectDb = async () => {
-  try {
-      const client = new Client({  
-        user: 'root',
-        host: 'dpg-cjfo5v7ut75s73cpss4g-a',
-        database: 'mydatabase_ku2q',
-        password: 'NyfHdWrVnfe9goCikHP5aPtLT0mrtPbA',
-        port: 5432
-      })
-
-      await client.connect()
-      const res = await client.query('SELECT * FROM users')
-      console.log(res)
-      await client.end()
-  } catch (error) {
-      console.log(error)
+connection.query('SELECT * FROM users', (error, results) => {
+  if (error) {
+    console.error('Error executing query:', error);
+    return;
   }
-}
-
-connectDb()
+  console.log('Query results:', results.rows);
+  
+  connection.end();
+});
 
 
 // const mysql = require('mysql');
