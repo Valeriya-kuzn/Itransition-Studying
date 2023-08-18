@@ -59,8 +59,8 @@ app.post('/login', (req, res) => {
   connection.query(
     'SELECT * FROM users WHERE email = $1',
     [email],
-    (err, res) => {
-      results = res.rows;
+    (err, dbResults) => {
+      results = dbResults.rows;
       if (err) {
         console.error(err);
         res.status(500).send('Error request');
