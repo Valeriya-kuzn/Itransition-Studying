@@ -62,10 +62,10 @@ app.post('/login', (req, res) => {
     (err, results) => {
       if (err) {
         console.error(err);
-        res.status(500).send('Ошибка при выполнении запроса');
+        res.status(500).send('Error request');
       } else {
         if (results.length === 0) {
-          res.status(401).send('Пользователь с таким логином не найден');
+          res.status(401).send('User is not found');
         } else {
           const user = results[0];
           if (user.password === password) {
@@ -73,10 +73,14 @@ app.post('/login', (req, res) => {
               'UPDATE users SET last_login_date = NOW() WHERE id = ?',
               [user.id]
             );
-            req.session.user = user;
-            res.redirect('/main');
+            if (user.status === 'active') {
+              req.session.user = user;
+              res.redirect('/main');
+            } else {
+            res.status(401).send('You are blocked');
+            }
           } else {
-            res.status(401).send('Неверный пароль');
+            res.status(401).send('Incorrect password');
           }
         }
       }
@@ -85,15 +89,18 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/main', (req, res) => {
-  if (req.session.user) {
+  if (req.session.user && req.session.user.status === 'active') {
     connection.query('SELECT * FROM users', (err, results) => {
       if (err) {
         console.error(err);
-        res.status(500).send('Ошибка при выполнении запроса');
+        res.status(500).send('Error request');
       } else {
         res.render('main', { users: results });
       }
     });
+  } else if (req.session.user && req.session.user.status !== 'active') {
+    req.session.user = null;
+    res.redirect('/login');
   } else {
     res.redirect('/login');
   }
@@ -118,14 +125,17 @@ app.post('/update-status', (req, res) => {
           (err, results) => {
               if (err) {
                   console.error(err);
-                  res.status(500).json({ success: false, error: 'Ошибка при выполнении запроса' });
+                  res.status(500).json({ success: false, error: 'Error request' });
+              } else if (action !== 'active' && userIds.includes(req.session.user.id.toString())) {
+                req.session.user = null;
+                res.json({ success: true });
               } else {
                   res.json({ success: true });
               }
           }
       );
   } else {
-      res.status(400).json({ success: false, error: 'Неверные данные запроса' });
+      res.status(400).json({ success: false, error: 'Incorrect data' });
   }
 });
 
@@ -139,14 +149,17 @@ app.post('/delete-users', (req, res) => {
           (err, results) => {
               if (err) {
                   console.error(err);
-                  res.status(500).json({ success: false, error: 'Ошибка при выполнении запроса' });
+                  res.status(500).json({ success: false, error: 'Error request' });
+              } else if (userIds.includes(req.session.user.id.toString())) {
+                req.session.user = null;
+                res.json({ success: true });
               } else {
                   res.json({ success: true });
               }
           }
       );
   } else {
-      res.status(400).json({ success: false, error: 'Неверные данные запроса' });
+      res.status(400).json({ success: false, error: 'Incorrect data' });
   }
 });
 

@@ -86,7 +86,7 @@ footer .footer-block, main .main-section, header .header-panel {
   height: 100%;
 }
 
-.registration, main .main-section-log, footer .footer-block, main .users-table, main .main-section .users-tubular, header .header-panel, .button {
+.registration, main .main-section-log, footer .footer-block, main .main-section .users-tubular, header .header-panel, .button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -151,6 +151,7 @@ main {
   min-height: calc(100vh - 160px);
 }
 main .main-section .users-tubular {
+  flex-wrap: wrap;
   padding: 40px 0;
 }
 main .users-table {

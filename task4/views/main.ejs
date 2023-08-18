@@ -24,11 +24,11 @@
                         <li><button type="button" class="button button--delete" onclick="deleteUser()">Delete</button></li>
                     </ul>
                 </div>
-                <div class="users-table">
-                    <table>
+                <div class="users-table table-responsive">
+                    <table class="table">
                         <thead>
                             <tr>
-                                <td class="checkbox"><label for="allCheckbox"><input type="checkbox" id="allCheckbox" name="userCheckbox" value="value"/></label></td>
+                                <td class="checkbox"><label for="allCheckbox"><input type="checkbox" id="allCheckbox" name="allCheckbox" value="value"/></label></td>
                                 <td class="id">ID</td>
                                 <td class="name">Name</td>
                                 <td class="mail">E-mail</td>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </footer>
-        <!-- Сценарий для обновления статуса -->
+
 <script>
     function updateStatus(action) {
         const selectedUsers = Array.from(document.querySelectorAll('input[name="userCheckbox"]:checked'))
@@ -82,19 +82,15 @@
             .then(response => response.json())
             .then(responseData => {
                 if (responseData.success) {
-                    // Обновление страницы или другие действия по необходимости
                     location.reload();
                 }
             })
             .catch(error => {
-                //
+                console.log('Error');
             });
         }
     }
-</script>
 
-<!-- Сценарий для удаления пользователей -->
-<script>
     function deleteUser() {
         const selectedUsers = Array.from(document.querySelectorAll('input[name="userCheckbox"]:checked'))
             .map(checkbox => checkbox.value);
@@ -110,16 +106,26 @@
             .then(response => response.json())
             .then(responseData => {
                 if (responseData.success) {
-                    // Обновление страницы или другие действия по необходимости
                     location.reload();
                 }
             })
             .catch(error => {
-                // Обработка ошибки
+                console.log('Error');
             });
         }
     }
-</script>
+
+    const selectAllCheckbox = document.getElementById('allCheckbox');
+    
+    const userCheckboxes = document.querySelectorAll('input[name="userCheckbox"]');
+  
+    selectAllCheckbox.addEventListener('change', function () {
+      userCheckboxes.forEach(checkbox => {
+        checkbox.checked = this.checked;
+      });
+    });
+  </script>
+  
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     </body>
