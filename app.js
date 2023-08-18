@@ -168,7 +168,7 @@ const { Client } = require("pg");
  
 const connection = new Client({
   user: 'root',
-  host: 'dpg-cjfo5v7ut75s73cpss4g-a.oregon-postgres.render.com',
+  host: 'dpg-cjfo5v7ut75s73cpss4g-a',
   database: 'mydatabase_ku2q',
   password: 'NyfHdWrVnfe9goCikHP5aPtLT0mrtPbA',
   port: 5432
