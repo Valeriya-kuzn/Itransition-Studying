@@ -3,7 +3,7 @@ const session = require('express-session');
 const express = require('express');
 const app = express();
 const path = require('path');
-const port = 3000;
+const port = 80;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -164,16 +164,50 @@ app.post('/delete-users', (req, res) => {
 });
 
 
-const mysql = require('mysql');
+const { Client } = require("pg");
+ 
+// const connection = new Client({
+//   user: 'root',
+//   host: 'dpg-cjfo5v7ut75s73cpss4g-a.oregon-postgres.render.com',
+//   database: 'mydatabase_ku2q',
+//   password: 'NyfHdWrVnfe9goCikHP5aPtLT0mrtPbA',
+//   port: 5432
+// })
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'mydatabase'
-});
+// connection.connect();
 
-connection.connect();
+const connectDb = async () => {
+  try {
+      const client = new Client({  
+        user: 'root',
+        host: 'dpg-cjfo5v7ut75s73cpss4g-a',
+        database: 'mydatabase_ku2q',
+        password: 'NyfHdWrVnfe9goCikHP5aPtLT0mrtPbA',
+        port: 5432
+      })
+
+      await client.connect()
+      const res = await client.query('SELECT * FROM users')
+      console.log(res)
+      await client.end()
+  } catch (error) {
+      console.log(error)
+  }
+}
+
+connectDb()
+
+
+// const mysql = require('mysql');
+
+// const connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'root',
+//     database: 'mydatabase'
+// });
+
+// connection.connect();
 
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);
