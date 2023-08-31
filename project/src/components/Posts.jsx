@@ -15,7 +15,7 @@ function Posts() {
   }, []);
 
   return (
-    <div>
+    <div key='posts-key'>
       {post.map(item => (
         <div className="post" key={item.id}>
           <div className="poster">

@@ -5,16 +5,16 @@ function Navigation() {
   return (
     <nav>
       <ul>
-        <li>
+        <li key={'logo-key'}>
           <Link to="/">What's new?</Link>
         </li>
-        <li>
+        <li key={'homepage-key'}>
           <Link to="/">Home</Link>
         </li>
-        <li>
+        <li key={'me-reviews-key'}>
           <Link to="/my-reviews">My reviews</Link>
         </li>
-        <li>
+        <li key={'profile-key'}>
           <Link to="/profile">Profile</Link>
         </li>
       </ul>

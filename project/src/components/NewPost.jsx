@@ -14,32 +14,32 @@ function NewPost() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const sendPost = {
-            post_title : title, 
-            post_content : content,
-        };
+        // const sendPost = {
+        //     post_title : title, 
+        //     post_content : content,
+        // };
 
         const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
         formData.append('file', file);
 
-        console.log(sendPost, formData) /////
-
-        axios.post('http://localhost:3001/backend/newpost', sendPost)
+        axios.post('http://localhost:3001/backend/newpost', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
             .then(response => {
                 console.log('Success: ', response.data); 
-                if (file) {
-                    axios.post('http://localhost:3001/backend/upload', formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    })
-                    .then(response => {
-                        console.log('Success: ', response.data);
-                    })
-                    .catch(error => {
-                        console.error('Error: ', error.message);
-                    });
-                }
+                // if (file) {
+                //     axios.post('http://localhost:3001/backend/upload', formData)
+                //     .then(response => {
+                //         console.log('Success: ', response.data);
+                //     })
+                //     .catch(error => {
+                //         console.error('Error: ', error.message);
+                //     });
+                // }
             })
             .catch(error => {
                 console.error('Error: ', error.message);
@@ -47,13 +47,13 @@ function NewPost() {
 
         setTitle('');
         setContent('');
-        // setFile(null);
+        setFile(null);
     };
 
     return (
-        <div className="newPost">
+        <div className="newPost" key={'new-post-key'}>
             <h2>Add new post</h2>
-            <form  onSubmit={handleSubmit}>
+            <form  onSubmit={handleSubmit}  id="formElem">
                 <input type="text" value={title} placeholder='Post title' onChange={(e) => setTitle(e.target.value)} />
                 <textarea type="text" value={content} placeholder='Post content' onChange={(e) => setContent(e.target.value)} />
                 <FileUpload onFileUpload={handleFileUpload}/>

@@ -1,17 +1,17 @@
 const express = require('express');
-const fileUpload = require('express-fileupload');
-const mysql = require('mysql');
 const multer = require('multer');
+const cors = require('cors');
+const mysql = require('mysql');
 const path = require('path');
 const app = express();
+
 const port = 3001;
-const cors = require('cors');
 
 app.use(cors());
 
-app.use(fileUpload());
-
 app.use(express.static('public'));
+
+app.use(express.json());
 
 const storage = multer.diskStorage({
     destination: 'public/uploads', 
@@ -32,15 +32,16 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-app.use(express.json());
+// const upload = multer();
 
-app.post('/backend/newpost', (req, res) => {
-    const { post_title, post_content } = req.body;
+app.post('/backend/newpost', upload.single('file'), (req, res) => {
+    const title = req.body.title;
+    const content = req.body.content;
     
-    if (post_title && post_content) {
+    if (title && content) {
         connection.query(
             'INSERT INTO posts (post_title, post_content) VALUES (?, ?)',
-            [post_title, post_content],
+            [title, content],
             (err, results) => {
                 if (err) {
                     res.status(500).send('Error creating new post');
@@ -54,23 +55,23 @@ app.post('/backend/newpost', (req, res) => {
     }
 });
 
-app.post('/backend/upload', upload.single('file'), (req, res) => {
-    const filePath = 'public/uploads/' + req.file.filename;
+// app.post('/backend/upload', upload.single('file'), (req, res) => {
+//     const filePath = 'public/uploads/' + req.file.filename;
     
-    connection.query(
-        'INSERT INTO posts (photo_path) VALUES (?)',
-        [filePath],
-        (err, results) => {
-            if (err) {
-                res.status(500).send('Error uploading photo path');
-            } else {
-                res.status(201).send('Photo successfully uploaded');
-            }
-        }
-    );
+//     connection.query(
+//         'INSERT INTO posts (photo_path) VALUES (?)',
+//         [filePath],
+//         (err, results) => {
+//             if (err) {
+//                 res.status(500).send('Error uploading photo path');
+//             } else {
+//                 res.status(201).send('Photo successfully uploaded');
+//             }
+//         }
+//     );
     
-    res.send('File uploaded');
-});
+//     res.send('File uploaded');
+// });
 
 app.get('/backend/posts', (req, res) => {
     connection.query(

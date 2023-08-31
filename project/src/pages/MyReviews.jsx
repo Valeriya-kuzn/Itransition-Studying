@@ -4,7 +4,7 @@ import Posts from '../components/Posts.jsx';
 
 function MyReviews() {
   return (
-    <div>
+    <div key={'my-reviews-page-key'}>
       <h2>My reviews</h2>
       <NewPost />
       <Posts />
