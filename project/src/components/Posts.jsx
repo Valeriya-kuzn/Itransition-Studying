@@ -5,7 +5,7 @@ function Posts() {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
+    axios.get('http://localhost:3001/backend/posts')
       .then(response => {
         setPost(response.data);
       })
@@ -18,8 +18,13 @@ function Posts() {
     <div>
       {post.map(item => (
         <div className="post" key={item.id}>
-          <div className="posttitle">{item.title}</div>
-          <div className="postcontent">{item.body}</div>
+          <div className="poster">
+            <img src={item.photo_path} alt={item.post_title} />
+          </div>
+          <div className="post-text">
+            <div className="posttitle">{item.post_title}</div>
+            <div className="postcontent">{item.post_content}</div>
+          </div>
         </div>
       ))}
     </div>
