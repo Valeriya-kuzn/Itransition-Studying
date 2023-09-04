@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function FileUpload() {
-    const [file, setFile] = useState(null);
+function FileUpload({file, setFile}) {
 
     const handleDrag = (e) => {
         e.preventDefault();
@@ -9,7 +8,7 @@ function FileUpload() {
 
     const handleDrop = (e) => {
         e.preventDefault();
-        setFile(e.dataTransfer.files[0]);
+        setFile(e.dataTransfer.files[0])
     };
 
     return (

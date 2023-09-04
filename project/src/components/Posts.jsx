@@ -5,13 +5,21 @@ function Posts() {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/backend/posts')
-      .then(response => {
+
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/backend/posts');
         setPost(response.data);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error fetching post:', error);
-      });
+      };
+    }
+
+    fetchPosts()
+
+    const interval = setInterval(fetchPosts, 5000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
