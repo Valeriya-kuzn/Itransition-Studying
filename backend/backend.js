@@ -45,7 +45,7 @@ app.post('/backend/newpost', upload.single('file'), (req, res) => {
     const content = req.body.content;
     let photo_path;
 
-    if (req.body.photo_path) {
+    if (req.file) {
     photo_path = serverPath + req.file.path.replace(/\\/g, '/').slice(7);
     }
 
