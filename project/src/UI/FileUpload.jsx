@@ -21,11 +21,11 @@ function FileUpload({file, setFile}) {
         >
             {file ? (
                 <div>
-                    <p>File downloaded: {file.name}</p>
-                    <p>Size: {file.size} byte</p>
+                    <p className = "form-label">File downloaded: {file.name}</p>
+                    <p className = "form-label">Size: {file.size} byte</p>
                 </div>
             ) : (
-                <p>Move file here</p>
+                <p className = "form-label">Move file here</p>
             )}
         </div>
     );

@@ -32,13 +32,13 @@ function Registration() {
     };
 
     return (
-        <div>
+        <div className = 'container'>
             <h2>Registration form</h2>
             <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Enter name" title="It will show on your page" onChange={(e) => setName(e.target.value)}/>
-                <input type="text" placeholder="Enter e-mail" onChange={(e) => setEmail(e.target.value)}/>
-                <input type="password" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
-                <button>Sing up</button>
+                <input className="form-control" type="text" placeholder="Enter name" title="It will show on your page" onChange={(e) => setName(e.target.value)}/>
+                <input className="form-control" type="text" placeholder="Enter e-mail" onChange={(e) => setEmail(e.target.value)}/>
+                <input className="form-control" type="password" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
+                <button className = "btn btn-light">Sing up</button>
             </form>
         </div>
     )

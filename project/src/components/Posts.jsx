@@ -27,7 +27,7 @@ function Posts() {
       {post.map(item => (
         <div className="post" key={item.id}>
           <div className="poster">
-            <img src={item.photo_path} alt={item.post_title} />
+            <img className="img-thumbnail" src={item.photo_path} alt={item.post_title} />
           </div>
           <div className="post-text">
             <div className="posttitle">{item.post_title}</div>

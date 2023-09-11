@@ -35,11 +35,11 @@ function NewPost() {
     return (
         <div className="newPost" key={'new-post-key'}>
             <h2>Add new post</h2>
-            <form  onSubmit={handleSubmit}>
-                <input type="text" value={title} placeholder='Post title' onChange={(e) => setTitle(e.target.value)} />
-                <textarea type="text" value={content} placeholder='Post content' onChange={(e) => setContent(e.target.value)} />
+            <form className = "mb-3" onSubmit={handleSubmit}>
+                <input className = "form-control" type="text" value={title} placeholder='Post title' onChange={(e) => setTitle(e.target.value)} />
+                <textarea className = "form-control" type="text" value={content} placeholder='Post content' onChange={(e) => setContent(e.target.value)} />
                 <FileUpload file={file} setFile={setFile}/>
-                <button>Create new post</button>
+                <button className = "btn btn-light">Create new post</button>
             </form>
         </div>
     )

@@ -31,12 +31,12 @@ function Login() {
     };
 
     return (
-        <div>
+        <div className = 'container'>
             <h2>Sign in</h2>
             <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Enter e-mail" onChange={(e) => setEmail(e.target.value)}/>
-                <input type="password" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
-                <button>Sing in</button>
+                <input className="form-control" type="text" placeholder="Enter e-mail" onChange={(e) => setEmail(e.target.value)}/>
+                <input className="form-control" type="password" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
+                <button className = "btn btn-light">Sing in</button>
             </form>
         </div>
     )
