@@ -15,7 +15,10 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 
 app.use(express.static('public'));
 
@@ -94,29 +97,30 @@ app.post('/backend/login', (req, res) => {
     const password = req.body.password;
 
     connection.query(
-      'SELECT * FROM users WHERE user_email = ?',
-      [email],
-      (err, results) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send('Error request');
-        } else {
-          if (results.length === 0) {
-            res.status(401).send('User is not found');
-          } else {
-            const user = results[0];
-            if (user.password === password) {
-              connection.query(
-                'UPDATE users SET last_login_date = NOW() WHERE user_id = ?',
-                [user.user_id]
-              );
-                req.session.user = user;
+        'SELECT * FROM users WHERE user_email = ?',
+        [email],
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error request');
             } else {
-              res.status(401).send('Incorrect password');
+                if (results.length === 0) {
+                    res.status(401).send('User is not found');
+                } else {
+                    const user = results[0];
+                    if (user.password === password) {
+                        connection.query(
+                            'UPDATE users SET last_login_date = NOW() WHERE user_id = ?',
+                            [user.user_id]
+                        );
+                        req.session.user = user;
+                        res.json({ success: true });
+                    } else {
+                        res.status(401).send('Incorrect password');
+                    }
+                }
             }
-          }
         }
-      }
     );
  });
 
@@ -130,8 +134,17 @@ app.get('/backend/posts', (req, res) => {
         } else {
           res.json(results);
         }
-      });
+    });
 });
+
+app.get('/backend/profile', (req, res) => {
+    if (req.session.user) {
+        res.json(req.session.user);
+    } else {
+        res.status(401).send('Unauthorized');
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);

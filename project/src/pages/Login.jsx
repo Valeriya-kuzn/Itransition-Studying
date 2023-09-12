@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        axios.defaults.withCredentials = true;
+        axios.defaults.credentials = 'include';
 
         const formData = new FormData();
         formData.append('email', email);
@@ -20,10 +25,12 @@ function Login() {
             }
         })
         .then(response => {
-            console.log('Success: ', response.data); 
+            console.log('Success: ', response.data);
+            navigate('/profile');
         })
         .catch(error => {
             console.error('Error: ', error.message);
+            navigate('/login');
         });
 
         setEmail('');
