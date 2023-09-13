@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Registration() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,10 +22,11 @@ function Registration() {
             }
         })
         .then(response => {
-            console.log('Success: ', response.data); 
+            navigate('/login');
         })
         .catch(error => {
             console.error('Error: ', error.message);
+            navigate('/registration');
         });
 
         setName('');
@@ -36,7 +39,7 @@ function Registration() {
             <h2>Registration form</h2>
             <form onSubmit={handleSubmit}>
                 <input className="form-control" type="text" placeholder="Enter name" title="It will show on your page" onChange={(e) => setName(e.target.value)}/>
-                <input className="form-control" type="text" placeholder="Enter e-mail" onChange={(e) => setEmail(e.target.value)}/>
+                <input className="form-control" type="email" placeholder="Enter e-mail" onChange={(e) => setEmail(e.target.value)}/>
                 <input className="form-control" type="password" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
                 <button className = "btn btn-light">Sing up</button>
             </form>

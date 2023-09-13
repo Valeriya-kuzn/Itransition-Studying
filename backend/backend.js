@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 const path = require('path');
 const app = express();
@@ -9,14 +10,20 @@ const port = 3001;
 
 const serverPath = 'http://localhost:3001/';
 
+app.use(cookieParser());
 app.use(session({
     secret: 'session',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24
+    }
 }));
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000'],
+    methods: ['POST', 'GET'],
     credentials: true
 }));
 
@@ -72,8 +79,7 @@ app.post('/backend/newpost', upload.single('file'), (req, res) => {
 app.post('/backend/registration', (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
-    const password = req.body.password; 
-    console.log("Received data:", name, email, password);
+    const password = req.body.password;
     
     if (name && email && password) {
         connection.query(
@@ -83,7 +89,7 @@ app.post('/backend/registration', (req, res) => {
                 if (err) {
                     res.status(500).send('Error request');
                 } else {
-                    console.log('Registration successfully finished.');
+                    res.json({success : true});
                 }
             }
         );
@@ -113,8 +119,8 @@ app.post('/backend/login', (req, res) => {
                             'UPDATE users SET last_login_date = NOW() WHERE user_id = ?',
                             [user.user_id]
                         );
-                        req.session.user = user;
-                        res.json({ success: true });
+                        req.session.usermail = user.user_email;
+                        res.json({success : true});
                     } else {
                         res.status(401).send('Incorrect password');
                     }
@@ -137,9 +143,9 @@ app.get('/backend/posts', (req, res) => {
     });
 });
 
-app.get('/backend/profile', (req, res) => {
-    if (req.session.user) {
-        res.json(req.session.user);
+app.get('/backend/access', (req, res) => {
+    if (req.session.usermail) {
+        res.json({success: true});
     } else {
         res.status(401).send('Unauthorized');
     }

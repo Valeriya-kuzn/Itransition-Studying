@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+
+    axios.defaults.withCredentials = true;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -29,7 +32,7 @@ function Login() {
             navigate('/profile');
         })
         .catch(error => {
-            console.error('Error: ', error.message);
+            console.log(error);
             navigate('/login');
         });
 
@@ -41,10 +44,14 @@ function Login() {
         <div className = 'container'>
             <h2>Sign in</h2>
             <form onSubmit={handleSubmit}>
-                <input className="form-control" type="text" placeholder="Enter e-mail" onChange={(e) => setEmail(e.target.value)}/>
-                <input className="form-control" type="password" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
+                <input className = "form-control" type="email" placeholder="Enter e-mail" onChange={(e) => setEmail(e.target.value)}/>
+                <input className = "form-control" type="password" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
                 <button className = "btn btn-light">Sing in</button>
             </form>
+            <div>
+                <div>Don't have an account?</div>
+                <Link className = "btn btn-light" to="/registration">Sign up</Link>
+            </div>
         </div>
     )
 }
