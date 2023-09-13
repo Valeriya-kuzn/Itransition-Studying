@@ -14,7 +14,6 @@ function Profile() {
               setUser(response.data);
           })
           .catch(error => {
-              console.log(error);
               navigate('/login');
           });
   }, [navigate]);
@@ -23,7 +22,19 @@ function Profile() {
       return <div>Loading...</div>;
   }
   
-  return <h2 className = 'container' key={'profile-page-key'}>Profile</h2>;
+  return (
+      <div className = 'container' key={'profile-page-key'}>
+          <h2>Profile</h2>
+          <form>
+              <label htmlFor="username">User name</label>
+              <input type="text" value={user.user_name} id="username" disabled/>
+              <label htmlFor="usermail">Email</label>
+              <input type="email" value={user.user_email} id="usermail" disabled/>
+              <label htmlFor="userid">User ID</label>
+              <input type="text" value={user.user_id} id="userid" disabled/>
+          </form>
+      </div>
+  );
 }
 
 export default Profile;

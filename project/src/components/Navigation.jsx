@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Logout from '../UI/Logout';
 
 function Navigation() {
   const [isAuth, setIsAuth] = useState(false);
@@ -13,7 +14,7 @@ function Navigation() {
         .catch(error => {
           setIsAuth(false);
         });
-  }, []);
+  }, [isAuth]);
 
   return (
     <div>
@@ -31,6 +32,9 @@ function Navigation() {
             </li>
             <li className = "nav-item" key={'profile-key'}>
               <Link className = "nav-link" to="/profile">Profile</Link>
+            </li>
+            <li className = "nav-item" key={'logout-key'}>
+              <Logout/>
             </li>
           </ul>
         </nav>

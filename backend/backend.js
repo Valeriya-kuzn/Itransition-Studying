@@ -119,7 +119,7 @@ app.post('/backend/login', (req, res) => {
                             'UPDATE users SET last_login_date = NOW() WHERE user_id = ?',
                             [user.user_id]
                         );
-                        req.session.usermail = user.user_email;
+                        req.session.user = user;
                         res.json({success : true});
                     } else {
                         res.status(401).send('Incorrect password');
@@ -128,6 +128,15 @@ app.post('/backend/login', (req, res) => {
             }
         }
     );
+ });
+
+ app.post('/backend/logout', (req, res) => {
+    if (req.session.user) {
+        req.session.user = null;
+        res.json({success : true});
+    } else {
+        res.status(401).send('You are not authorize');
+    }
  });
 
 app.get('/backend/posts', (req, res) => {
@@ -144,8 +153,8 @@ app.get('/backend/posts', (req, res) => {
 });
 
 app.get('/backend/access', (req, res) => {
-    if (req.session.usermail) {
-        res.json({success: true});
+    if (req.session.user) {
+        res.json(req.session.user);
     } else {
         res.status(401).send('Unauthorized');
     }
