@@ -52,6 +52,8 @@ connection.connect();
 
 app.post('/backend/newpost', upload.single('file'), (req, res) => {
     const title = req.body.title;
+    const type = req.body.type;
+    const creation = req.body.creation;
     const content = req.body.content;
     let photo_path;
 
@@ -59,10 +61,10 @@ app.post('/backend/newpost', upload.single('file'), (req, res) => {
     photo_path = serverPath + req.file.path.replace(/\\/g, '/').slice(7);
     }
 
-    if (title && content) {
+    if (title && type && creation && content) {
         connection.query(
-            'INSERT INTO posts (post_title, post_content, photo_path) VALUES (?, ?, ?)',
-            [title, content, photo_path],
+            'INSERT INTO posts (post_title, post_type, post_creation, post_content, photo_path) VALUES (?, ?, ?, ?, ?)',
+            [title, type, creation, content, photo_path],
             (err, results) => {
                 if (err) {
                     res.status(500).send('Error creating new post');

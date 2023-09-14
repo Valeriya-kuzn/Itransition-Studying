@@ -6,6 +6,7 @@ import Profile from './pages/Profile.jsx';
 import MyReviews from './pages/MyReviews.jsx';
 import Registration from './pages/Registration.jsx';
 import Login from './pages/Login.jsx';
+import './styles.scss';
 
 function App() {
   return (
