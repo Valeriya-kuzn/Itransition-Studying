@@ -7,6 +7,7 @@ import MyReviews from './pages/MyReviews.jsx';
 import Registration from './pages/Registration.jsx';
 import Login from './pages/Login.jsx';
 import './styles.scss';
+import Post from './pages/Post.jsx';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path='/registration' element={<Registration/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/post' element={<Post/>}/>
       </Routes>
     </BrowserRouter>
   );
