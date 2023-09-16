@@ -69,12 +69,12 @@ app.post('/backend/newpost', upload.single('file'), (req, res) => {
                 if (err) {
                     res.status(500).send('Error creating new post');
                 } else {
-                    res.status(201).send('New post successfully created');
+                    res.json({success: true, status: 'New post successfully created'});
                 }
             }
         );
     } else {
-        res.status(400).send('Please enter all data');
+        res.json({success: false, status: 'Please enter all data. Check all fields and try again.'});
     }
 });
 

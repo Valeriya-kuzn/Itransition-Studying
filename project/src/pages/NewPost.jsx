@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import FileUpload from '../UI/FileUpload'; 
+import FileUpload from '../UI/FileUpload';
+import { Link } from 'react-router-dom';
 
 function NewPost() {
     const [title, setTitle] = useState('');
@@ -8,6 +9,7 @@ function NewPost() {
     const [creation, setCreation] = useState('');
     const [type, setType] = useState('');
     const [file, setFile] = useState(null);
+    const [postStatus, setPostStatus] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,9 +27,11 @@ function NewPost() {
             }
         })
         .then(response => {
-            console.log('Success: ', response.data); 
+            setPostStatus(response.data.status)
+            console.log(response.data); 
         })
         .catch(error => {
+            setPostStatus('Error. Try again later.')
             console.error('Error: ', error.message);
         });
 
@@ -36,47 +40,64 @@ function NewPost() {
         setCreation('');
         setContent('');
         setFile(null);
+        setPostStatus('')
     };
 
+
     return (
-        <div className="newPost" key={'new-post-key'}>
+        <div className="container" key={'new-post-key'}>
             <h2>Add new post</h2>
             <form className = "mb-3" onSubmit={handleSubmit}>
+                <label htmlFor="postTitle" title='Describe the main idea of you post in few words'>Post title</label>
                 <input 
                     className = "form-control" 
                     type="text" 
-                    value={title} 
-                    placeholder='Post title' 
+                    value={title}
+                    placeholder='Post title'
+                    id='postTitle'
+                    title='Describe the main idea of you post in few words'
+                    required
                     onChange={(e) => setTitle(e.target.value)} 
                 />
 
-                <select onChange={(e) => setType(e.target.value)} >
+                <label htmlFor="postType" title='Enter the type of the creation'>Type of creation</label>
+                <div><select onChange={(e) => setType(e.target.value)} id='postType' required>
                     <option value="">-- Choose a creation --</option>
                     <option value="Movie">Movie</option>
                     <option value="Game">Game</option>
                     <option value="Book">Book</option>
                     <option value="Other">Other</option>
-                </select>
+                </select></div>
 
+                <label htmlFor="postName" title='Enter the name of the creation'>Name of creation</label>
                 <input 
                     className = "form-control" 
-                    type="text" 
+                    type="text"
                     value={creation} 
-                    placeholder='Name of creation' 
+                    placeholder='Name of creation'
+                    id='postName'
+                    title='Enter the name of creation'
+                    required
                     onChange={(e) => setCreation(e.target.value)} 
                 />
 
+                <label htmlFor="postContent" title='Enter your impressions of the creation'>Your review</label>
                 <textarea 
                     className = "form-control" 
                     type="text" 
                     value={content} 
-                    placeholder='Post content' 
+                    placeholder='Your review' 
+                    id='postContent'
+                    title='Enter the name of the creation'
+                    required
                     onChange={(e) => setContent(e.target.value)}
                 />
 
                 <FileUpload file={file} setFile={setFile}/>
-                <button className = "btn btn-light">Create new post</button>
+                <button className = "btn btn-light" title='Click to create new post'>Create new post</button>
             </form>
+            <div><p>{postStatus}</p></div>
+            <Link className = "btn btn-light" to="/my-reviews" title='Click to back to your profile'>Back to profile</Link>
         </div>
     )
 }

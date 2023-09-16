@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import ReactMarkdown from 'react-markdown';
 
 function Home() {
   const [post, setPost] = useState([]);
@@ -24,8 +25,8 @@ function Home() {
   }, []);
 
   return (
-    <div key='posts-key'>
-      <h2 className = 'container' key='home-key'>Home Page</h2>
+    <div className = 'container' key='posts-key'>
+      <h2 key='home-key'>Home Page</h2>
       {post.map(item => (
         <div className="post" key={item.id}>
           <div className="poster">
@@ -36,7 +37,7 @@ function Home() {
             <div className="postdate">{moment(item.date).format('DD.MM.YYYY')}</div>
             <div className="postcreation">{item.post_creation}</div>
             <div className="posttype">Category: {item.post_type}</div>
-            <div className="postcontent">{item.post_content}</div>
+            <div className="postcontent"><ReactMarkdown>{item.post_content}</ReactMarkdown></div>
           </div>
         </div>
       ))}

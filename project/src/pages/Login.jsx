@@ -29,7 +29,7 @@ function Login() {
         })
         .then(response => {
             console.log('Success: ', response.data);
-            navigate('/profile');
+            navigate('/my-reviews');
         })
         .catch(error => {
             console.log(error);

@@ -28,10 +28,7 @@ function Navigation() {
               <Link className = "nav-link" to="/">Home</Link>
             </li>
             <li className = "nav-item" key={'me-reviews-key'}>
-              <Link className = "nav-link" to="/my-reviews">My reviews</Link>
-            </li>
-            <li className = "nav-item" key={'profile-key'}>
-              <Link className = "nav-link" to="/profile">Profile</Link>
+              <Link className = "nav-link" to="/my-reviews">Profile</Link>
             </li>
             <li className = "nav-item" key={'logout-key'}>
               <Logout/>
