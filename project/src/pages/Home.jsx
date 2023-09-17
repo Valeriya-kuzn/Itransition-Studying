@@ -29,9 +29,14 @@ function Home() {
       <h2 key='home-key'>Home Page</h2>
       {post.map(item => (
         <div className="post" key={item.id}>
-          <div className="poster">
-            <img className="img-thumbnail" src={item.photo_path} alt={item.post_title} />
-          </div>
+            <div className="poster">
+                {item.photo_path ? (
+                    <img className="img-thumbnail" src={item.photo_path} alt={item.post_title} />
+                    ) : (
+                    <div>No image</div>
+                    )
+                }
+            </div>
           <div className="post-text">
             <div className="posttitle">{item.post_title}</div>
             <div className="postdate">{moment(item.date).format('DD.MM.YYYY')}</div>

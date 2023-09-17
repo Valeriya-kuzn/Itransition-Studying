@@ -6,12 +6,17 @@ import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
 function MyPosts() {
-  const [post, setPost] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [filteredText, setFilteredText] = useState([]);
+  const [selectedPosts, setSelectedPosts] = useState([]);
+  const [isDeleteAble, setIsDeleteAble] = useState(true)
   const columns = [
       {
           name: 'Title',
           selector: row => row.post_title,
-          sortable: true
+          sortable: true,
+          filter: 'text',
+          filterValue: filteredText
       },
       {
           name: 'Date',
@@ -35,49 +40,73 @@ function MyPosts() {
       }
   ]
 
+  const handleFilterChange = (e) => {
+    const newPosts = posts.filter(row => {
+         return row.post_title.toLowerCase().includes(e.target.value.toLowerCase());
+     });
+     setFilteredText(newPosts);
+   }; 
+
+  const fetchPosts = () => {
+      axios.get('http://localhost:3001/backend/posts')
+      .then(response => {
+          setPosts(response.data);
+          setFilteredText(response.data);
+      })
+      .catch(error => {
+          console.error('Error fetching post:', error);
+      });
+  }
+  
   useEffect(() => {
-    const fetchPosts = () => {
-        axios.get('http://localhost:3001/backend/posts')
-        .then(response => {
-            setPost(response.data);
+      fetchPosts()
+  }, []);
+
+  const deleteSelectedPosts = () => {
+    axios
+        .delete('http://localhost:3001/backend/posts/delete', {
+            data: { postIds: selectedPosts },
         })
-        .catch(error => {
-            console.error('Error fetching post:', error);
+        .then((response) => {
+            fetchPosts();
+        })
+        .catch((error) => {
+            console.error('Error deleting posts:', error);
         });
-    }
-
-    fetchPosts()
-  }, []); 
-
-
-  // useEffect(() => {
-
-  //   const fetchPosts = async () => {
-  //     try {
-  //       const response = await axios.get('http://localhost:3001/backend/posts');
-  //       setPost(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching post:', error);
-  //     };
-  //   }
-
-  //   fetchPosts()
-
-  //   const interval = setInterval(fetchPosts, 5000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
+    setSelectedPosts([]);
+  };
+  
 
   return (
       <div className='container'>
-        <h2>Your posts</h2>
-        <Link className = "btn btn-light" to="/new-post">Create new post</Link>
+          <h2>Your posts</h2>
+          <div>
+          <Link className = "btn btn-light" to="/new-post" title='Click to create new post'>Create new post</Link>
+          <button 
+              className="btn btn-danger"
+              onClick={deleteSelectedPosts}
+              title='Click to delete selected posts'
+              disabled={isDeleteAble}>
+              Delete
+          </button>
+          {/* <Link className="btn btn-primary ml-2" to={`/view-post/${row.id}`}>Open</Link> */}
+          <input
+              type="text"
+              onChange={handleFilterChange}
+              placeholder='Search for title'
+          />
+          </div>
           <DataTable
-                columns={columns}
-                data={post}
-                selectableRows
-                fixedHeader
-                pagination>
+              columns={columns}
+              data={filteredText}
+              selectableRows
+              onSelectedRowsChange={({ selectedRows }) => {
+                  const selectedPostIds = selectedRows.map((row) => row.post_id);
+                  setSelectedPosts(selectedPostIds);
+                  setIsDeleteAble(selectedPostIds.length === 0);
+              }}
+              fixedHeader
+              pagination>
           </DataTable>
       </div>
   );

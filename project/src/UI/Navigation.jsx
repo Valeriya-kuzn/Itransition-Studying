@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Logout from '../UI/Logout';
+import Logout from './Logout';
 
 function Navigation() {
   const [isAuth, setIsAuth] = useState(false);

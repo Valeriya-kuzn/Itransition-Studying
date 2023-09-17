@@ -23,7 +23,7 @@ app.use(session({
 
 app.use(cors({
     origin: ['http://localhost:3000'],
-    methods: ['POST', 'GET'],
+    methods: ['POST', 'GET', 'DELETE'],
     credentials: true
 }));
 
@@ -152,6 +152,23 @@ app.get('/backend/posts', (req, res) => {
           res.json(results);
         }
     });
+});
+
+
+app.delete('/backend/posts/delete', (req, res) => {
+    const idDelete = req.body.postIds;
+    console.log(idDelete);
+    connection.query(
+        'DELETE FROM posts WHERE post_id IN (?)',
+        [idDelete],
+        (err, results) => {
+            if (err) {
+                res.status(500).send('Error request');
+            } else {
+                res.json({success : true});
+            }
+        }
+    )
 });
 
 app.get('/backend/access', (req, res) => {
