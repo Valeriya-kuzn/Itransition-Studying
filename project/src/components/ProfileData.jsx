@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Profile(user) {
+function ProfileData(user) {
   if (!user.user) {
       return <div>Loading...</div>;
   }
@@ -20,4 +20,4 @@ function Profile(user) {
   );
 }
 
-export default Profile;
+export default ProfileData;

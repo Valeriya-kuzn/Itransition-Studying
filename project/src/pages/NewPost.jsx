@@ -97,7 +97,7 @@ function NewPost() {
                 <button className = "btn btn-light" title='Click to create new post'>Create new post</button>
             </form>
             <div><p>{postStatus}</p></div>
-            <Link className = "btn btn-light" to="/my-reviews" title='Click to back to your profile'>Back to profile</Link>
+            <Link className = "btn btn-light" to="/profile" title='Click to back to your profile'>Back to profile</Link>
         </div>
     )
 }

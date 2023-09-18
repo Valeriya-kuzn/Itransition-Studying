@@ -1,10 +1,10 @@
 import React, { useEffect, useState  } from 'react';
 import axios from 'axios';
-import Profile from '../components/Profile.jsx';
+import ProfileData from '../components/ProfileData.jsx';
 import MyPosts from '../components/MyPosts.jsx';
 import { useNavigate} from 'react-router-dom';
 
-function MyReviews() {
+function Profile() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -22,10 +22,10 @@ function MyReviews() {
 
   return (
       <div className = 'container' key={'my-reviews-page-key'}>
-          <Profile user={user}/>
+          <ProfileData user={user}/>
           <MyPosts />
       </div>
   )
 }
 
-export default MyReviews;
+export default Profile;

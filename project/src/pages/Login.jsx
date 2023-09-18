@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-function Login() {
+function Login({user, setUser}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    axios.defaults.withCredentials = true;
+    const handleLogin = (userData) => {
+        Cookies.set('user', JSON.stringify(userData), { expires: 7 });
+        setUser(userData);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,16 +24,14 @@ function Login() {
         formData.append('email', email);
         formData.append('password', password);
 
-        console.log(formData.get('email'), formData.get('password'));
-
         axios.post('http://localhost:3001/backend/login', formData, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
         .then(response => {
-            console.log('Success: ', response.data);
-            navigate('/my-reviews');
+            handleLogin(response.data.user);
+            navigate('/profile');
         })
         .catch(error => {
             console.log(error);

@@ -37,7 +37,22 @@ function MyPosts() {
           name: 'Content',
           selector: (row) => <ReactMarkdown>{row.post_content}</ReactMarkdown>,
           sortable: true
-      }
+      },
+      {
+          name: 'Actions',
+          selector: (row) => (
+              <div>
+                <Link className="btn btn-primary ml-2" to={`/view-post/${row.post_id}`} state={{post : row}}>
+                  Open
+                </Link>
+                <Link className="btn btn-secondary ml-2" to={`/edit-post/${row.post_id}`} state={{post : row}}>
+                  Edit
+                </Link>
+              </div>
+          ),
+          allowOverflow: true,
+          button: true,
+      },
   ]
 
   const handleFilterChange = (e) => {
@@ -89,7 +104,6 @@ function MyPosts() {
               disabled={isDeleteAble}>
               Delete
           </button>
-          {/* <Link className="btn btn-primary ml-2" to={`/view-post/${row.id}`}>Open</Link> */}
           <input
               type="text"
               onChange={handleFilterChange}

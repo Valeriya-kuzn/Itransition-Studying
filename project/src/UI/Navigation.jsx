@@ -1,24 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Logout from './Logout';
 
-function Navigation() {
-  const [isAuth, setIsAuth] = useState(false);
-
-  useEffect(() => {
-    axios.get('http://localhost:3001/backend/access')
-        .then(response => {
-          setIsAuth(true);
-        })
-        .catch(error => {
-          setIsAuth(false);
-        });
-  }, [isAuth]);
-
+function Navigation({user, setUser}) {
   return (
     <div>
-      {isAuth ? (
+      {user ? (
         <nav className = "container-fluid navbar navbar-expand-lg navbar-light bg-light">
           <ul className = "navbar-nav container">
             <li className = "nav-item" key={'logo-key'}>
@@ -28,10 +15,10 @@ function Navigation() {
               <Link className = "nav-link" to="/">Home</Link>
             </li>
             <li className = "nav-item" key={'me-reviews-key'}>
-              <Link className = "nav-link" to="/my-reviews">Profile</Link>
+              <Link className = "nav-link" to="/profile">Profile</Link>
             </li>
             <li className = "nav-item" key={'logout-key'}>
-              <Logout/>
+              <Logout user={user} setUser={setUser}/>
             </li>
           </ul>
         </nav>

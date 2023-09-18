@@ -122,7 +122,8 @@ app.post('/backend/login', (req, res) => {
                             [user.user_id]
                         );
                         req.session.user = user;
-                        res.json({success : true});
+                        res.json({user : user});
+                        console.log(user)
                     } else {
                         res.status(401).send('Incorrect password');
                     }
