@@ -44,10 +44,10 @@ function EditPost({ user }) {
     };
 
     useEffect(() => {
-        if (!user) {
+        if (!user || user.user_id !== post.user_id) {
             navigate('/login');
         }
-    }, [navigate, user]);
+    }, [navigate, user.user_id, post.user_id]);
 
     if (!post) {
         return <div className = 'container'>Loading...</div>;

@@ -40,10 +40,11 @@ function Home() {
                         </div>
                         <div className="post-text">
                             <div className="posttitle">{item.post_title}</div>
-                            <div className="postdate">{moment(item.date).format('DD.MM.YYYY')}</div>
                             <div className="postcreation">{item.post_creation}</div>
                             <div className="posttype">Category: {item.post_type}</div>
                             <div className="postcontent"><ReactMarkdown>{item.post_content}</ReactMarkdown></div>
+                            <div className="postauthor">Author: {item.user_id}</div>
+                            <div className="postdate">{moment(item.date).format('DD.MM.YYYY')}</div>
                         </div>
                     </Link>
                 </div>
