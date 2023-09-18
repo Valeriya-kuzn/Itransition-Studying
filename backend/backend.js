@@ -11,6 +11,7 @@ const port = 3001;
 const serverPath = 'http://localhost:3001/';
 
 app.use(cookieParser());
+
 app.use(session({
     secret: 'session',
     resave: false,
@@ -78,6 +79,35 @@ app.post('/backend/newpost', upload.single('file'), (req, res) => {
     }
 });
 
+app.post('/backend/edit-post/:post_id', upload.single('file'), (req, res) => {
+    const { post_id } = req.params;
+    const title = req.body.title;
+    const type = req.body.type;
+    const creation = req.body.creation;
+    const content = req.body.content;
+    let photo_path;
+
+    if (req.file) {
+    photo_path = serverPath + req.file.path.replace(/\\/g, '/').slice(7);
+    }
+
+    if (title && type && creation && content) {
+        connection.query(
+            'UPDATE posts SET post_title = ?, post_type = ?, post_creation = ?, post_content = ?, photo_path = ? WHERE post_id = ?',
+            [title, type, creation, content, photo_path, post_id],
+            (err, results) => {
+                if (err) {
+                    res.json({success: false, status: 'Please enter all data. Check all fields and try again.'});
+                } else {
+                    res.json({success: true, status: 'Your post successfully updated'});
+                }
+            }
+        );
+    } else {
+        res.json({success: false, status: 'Please enter all data. Check all fields and try again.'});
+    }
+});
+
 app.post('/backend/registration', (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
@@ -123,7 +153,6 @@ app.post('/backend/login', (req, res) => {
                         );
                         req.session.user = user;
                         res.json({user : user});
-                        console.log(user)
                     } else {
                         res.status(401).send('Incorrect password');
                     }
@@ -131,16 +160,16 @@ app.post('/backend/login', (req, res) => {
             }
         }
     );
- });
+});
 
- app.post('/backend/logout', (req, res) => {
+app.post('/backend/logout', (req, res) => {
     if (req.session.user) {
         req.session.user = null;
         res.json({success : true});
     } else {
         res.status(401).send('You are not authorize');
     }
- });
+});
 
 app.get('/backend/posts', (req, res) => {
     connection.query(
@@ -155,10 +184,24 @@ app.get('/backend/posts', (req, res) => {
     });
 });
 
+app.get('/backend/view-post/:post_id', (req, res) => {
+    const { post_id } = req.params;
+
+    connection.query(
+        'SELECT * FROM posts WHERE post_id = ?', 
+        [post_id],
+        (err, results) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Error request');
+        } else {
+          res.json(results[0]);
+        }
+    });
+});
 
 app.delete('/backend/posts/delete', (req, res) => {
     const idDelete = req.body.postIds;
-    console.log(idDelete);
     connection.query(
         'DELETE FROM posts WHERE post_id IN (?)',
         [idDelete],
@@ -179,7 +222,6 @@ app.get('/backend/access', (req, res) => {
         res.status(401).send('Unauthorized');
     }
 });
-
 
 app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);

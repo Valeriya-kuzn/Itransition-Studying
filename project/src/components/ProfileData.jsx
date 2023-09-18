@@ -2,7 +2,7 @@ import React from 'react';
 
 function ProfileData(user) {
   if (!user.user) {
-      return <div>Loading...</div>;
+      return <div className = 'container'>Loading...</div>;
   }
   
   return (

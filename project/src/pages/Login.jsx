@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,12 @@ function Login({user, setUser}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/profile');
+        }
+    }, [navigate, user]);
 
     const handleLogin = (userData) => {
         Cookies.set('user', JSON.stringify(userData), { expires: 7 });

@@ -18,6 +18,7 @@ function Logout({user, setUser}) {
             navigate('/login');
         })
         .catch(error => {
+            handleLogout();
             console.log(error);
         });
     }
