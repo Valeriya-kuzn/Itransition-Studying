@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -42,6 +42,12 @@ function EditPost({ user }) {
             console.error('Error: ', error.message);
         });
     };
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [navigate, user]);
 
     if (!post) {
         return <div className = 'container'>Loading...</div>;

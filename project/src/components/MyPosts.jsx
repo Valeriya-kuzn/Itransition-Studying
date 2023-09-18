@@ -63,7 +63,7 @@ function MyPosts() {
     }; 
 
     const fetchPosts = () => {
-        axios.get('http://localhost:3001/backend/posts')
+        axios.get('http://localhost:3001/backend/myposts')
         .then(response => {
             setPosts(response.data);
             setFilteredText(response.data);

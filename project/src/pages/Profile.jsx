@@ -3,7 +3,7 @@ import ProfileData from '../components/ProfileData.jsx';
 import MyPosts from '../components/MyPosts.jsx';
 import { useNavigate} from 'react-router-dom';
 
-function Profile({user}) {
+function Profile({ user }) {
   const navigate = useNavigate();
 
   useEffect(() => {

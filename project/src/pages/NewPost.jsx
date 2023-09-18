@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import FileUpload from '../UI/FileUpload';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-function NewPost() {
+function NewPost({ user }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [creation, setCreation] = useState('');
     const [type, setType] = useState('');
     const [file, setFile] = useState(null);
     const [postStatus, setPostStatus] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -43,6 +44,11 @@ function NewPost() {
         setPostStatus('')
     };
 
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [navigate, user]);
 
     return (
         <div className="container" key={'new-post-key'}>
