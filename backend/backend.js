@@ -6,9 +6,7 @@ const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 const path = require('path');
 const app = express();
-const port = 3001;
-
-const serverPath = 'http://localhost:3001/';
+const serverPath = 'https://course-project-e5ui.onrender.com/';
 
 app.use(cookieParser());
 
@@ -263,5 +261,5 @@ app.get('/backend/access', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is listening at http://localhost:${port}`);
+    console.log(`Server is listening`);
   });
