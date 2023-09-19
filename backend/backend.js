@@ -22,7 +22,7 @@ app.use(session({
 }));
 
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: 'course-project-frontend.onrender.com',
     methods: ['POST', 'GET', 'DELETE'],
     credentials: true
 }));
