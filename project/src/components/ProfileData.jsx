@@ -8,8 +8,8 @@ function ProfileData(user) {
   return (
       <div className = 'container' key={'profile-page-key'}>
           <h2>Profile</h2>
-          <form>
-              <label htmlFor="username">User name</label>
+          <form className='userdata'>
+              <label htmlFor="username" className>User name</label>
               <input type="text" value={user.user.user_name} id="username" disabled/>
               <label htmlFor="usermail">Email</label>
               <input type="email" value={user.user.user_email} id="usermail" disabled/>

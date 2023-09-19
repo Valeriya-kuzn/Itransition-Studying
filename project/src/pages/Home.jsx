@@ -25,11 +25,11 @@ function Home() {
     }, []);
 
     return (
-        <div className = 'container' key='posts-key'>
+        <div className = 'container home-page' key='posts-key'>
             <h2 key='home-key'>Home Page</h2>
             {post.map(item => (
-                <div className="post" key={item.post_id}>
-                    <Link to={`/view-post/${item.post_id}`} title='Click to open post'>
+                <div key={item.post_id}>
+                    <Link className="post" to={`/view-post/${item.post_id}`} title='Click to open post'>
                         <div className="poster">
                             {item.photo_path ? (
                                 <img className="img-thumbnail" src={item.photo_path} alt={item.post_title} />
@@ -39,12 +39,18 @@ function Home() {
                             }
                         </div>
                         <div className="post-text">
-                            <div className="posttitle">{item.post_title}</div>
-                            <div className="postcreation">{item.post_creation}</div>
-                            <div className="posttype">Category: {item.post_type}</div>
+                            <div>
+                                <div className="posttitle">{item.post_title}</div>
+                                <div className="postcreation">{item.post_creation}</div>
+                            </div>
                             <div className="postcontent"><ReactMarkdown>{item.post_content}</ReactMarkdown></div>
-                            <div className="postauthor">Author: {item.user_id}</div>
-                            <div className="postdate">{moment(item.date).format('DD.MM.YYYY')}</div>
+                            <div>
+                                <div className="posttype">Category: {item.post_type}</div>
+                                <div className="postfooter">
+                                    <div className="postauthor">Author: {item.user_id}</div>
+                                    <div className="postdate">{moment(item.date).format('DD.MM.YYYY')}</div>
+                                </div>
+                            </div>
                         </div>
                     </Link>
                 </div>

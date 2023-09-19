@@ -42,14 +42,18 @@ function ViewPost({ user }) {
                 </div>
                 <div className="post-text">
                     <div className="postcreation">{post.post_creation}</div>
-                    <div className="posttype">Category: {post.post_type}</div>
                     <div className="postcontent"><ReactMarkdown>{post.post_content}</ReactMarkdown></div>
-                    <div className="postauthor">Author: {post.user_id}</div>
-                    <div className="postdate">{moment(post.date).format('DD.MM.YYYY')}</div>
+                    <div>
+                        <div className="posttype">Category: {post.post_type}</div>
+                        <div className="postfooter">
+                            <div className="postauthor">Author: {post.user_id}</div>
+                            <div className="postdate">{moment(post.date).format('DD.MM.YYYY')}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            {user.user_id === post.user_id ? (
-                <div>
+            {user && user.user_id === post.user_id ? (
+                <div className='profileButtons'>
                     <Link className = "btn btn-primary ml-2" to="/profile" title='Click to go to your profile page'>Go to profile</Link>
                     <Link className="btn btn-secondary ml-2" to={`/edit-post/${post.post_id}`} state={{post : post}}>
                     Edit

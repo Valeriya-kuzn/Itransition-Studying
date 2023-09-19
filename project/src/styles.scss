@@ -1,3 +1,144 @@
-h1 {
-    font-size: 14px;
+@import "nullstyles.scss";
+
+%flexing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    @extend %flexing;
+    min-width: 70px;
+    margin: 10px 5px 10px 0;
+}
+
+.shortlink {
+    width: 70px;
+}
+
+h2 {
+    font-size: 23px;
+    font-weight: 600;
+    margin: 20px 0;
+}
+
+input, textarea {
+    margin: 10px 0;
+}
+
+select {
+    margin: 10px 0;
+    height: 30px;
+}
+
+.userdata {
+    display: flex;
+    flex-direction: column;
+    input {
+        min-height: 30px;
+    }
+}
+
+.post {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 16px;
+    border: 2px solid rgba($color: #bbb9cb6b, $alpha: 0.3);
+    border-radius: 5px;
+    padding: 15px 10px;
+    margin: 0 0 15px;
+    .post-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 69%;
+        .posttitle {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .postcreation {
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .postauthor, .postdate, .posttype {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .postfooter {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    .poster {
+        width: 30%;
+        min-width: 180px;
+        min-height: 70px;
+        @extend %flexing;
+        margin-right: 10px;
+    }
+}
+
+.home-page {
+    .postcontent {
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.postEdit {
+    width: 100%;
+}
+
+.profileButtons {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    .btn {
+        margin-right: 20px;
+    }
+}
+
+.fileUpload {
+    min-height: 60px;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #40404586;
+    background-color: #bbb9cb0c;
+    @extend %flexing;
+}
+
+.photo-edit{
+    @extend %flexing;
+    flex-direction: column;
+    .profileButtons {
+        @extend %flexing;
+    }
+    .poster, label {
+        margin: 0;
+    }
+    .btn {
+        margin: 10px 5px;
+    }
+}
+
+.tablePost {
+    p {
+        white-space: wrap;
+        margin: 10px 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.nav-item {
+    font-size: 18px;
+    font-weight: 600;
 }

@@ -53,7 +53,7 @@ function NewPost({ user }) {
     return (
         <div className="container" key={'new-post-key'}>
             <h2>Add new post</h2>
-            <form className = "mb-3" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <label htmlFor="postTitle" title='Describe the main idea of you post in few words'>Post title</label>
                 <input 
                     className = "form-control" 
@@ -100,10 +100,12 @@ function NewPost({ user }) {
                 />
 
                 <FileUpload file={file} setFile={setFile}/>
-                <button className = "btn btn-light" title='Click to create new post'>Create new post</button>
+                <div className='profileButtons'>
+                    <button className = "btn btn-light" title='Click to create new post'>Create new post</button>
+                    <Link className = "btn btn-light" to="/profile" title='Click to back to your profile'>Back to profile</Link>
+                </div>
             </form>
             <div><p>{postStatus}</p></div>
-            <Link className = "btn btn-light" to="/profile" title='Click to back to your profile'>Back to profile</Link>
         </div>
     )
 }

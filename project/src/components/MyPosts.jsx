@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import DataTable from 'react-data-table-component';
+import { tableStyle } from '../UI/tableStyle';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
@@ -13,6 +14,7 @@ function MyPosts() {
     const columns = [
         {
             name: 'Title',
+            maxWidth: "200px",
             selector: row => row.post_title,
             sortable: true,
             filter: 'text',
@@ -20,26 +22,31 @@ function MyPosts() {
         },
         {
             name: 'Date',
+            maxWidth: "130px",
             selector: row => moment(row.date).format('DD.MM.YYYY'),
             sortable: true
         },
         {
             name: 'Creation',
+            maxWidth: "200px",
             selector: row => row.post_creation,
             sortable: true
         },
         {
             name: 'Type',
+            maxWidth: "130px",
             selector: row => row.post_type,
             sortable: true
         },
         {
             name: 'Content',
-            selector: (row) => <ReactMarkdown>{row.post_content}</ReactMarkdown>,
+            maxWidth: "440px",
+            selector: (row) => <ReactMarkdown className='tablePost'>{row.post_content}</ReactMarkdown>,
             sortable: true
         },
         {
             name: 'Actions',
+            maxWidth: "130px",
             selector: (row) => (
                 <div>
                     <Link className="btn btn-primary ml-2" to={`/view-post/${row.post_id}`} state={{post : row}}>
@@ -51,7 +58,7 @@ function MyPosts() {
                 </div>
             ),
             allowOverflow: true,
-            button: true,
+            button: true
         },
     ]
 
@@ -95,27 +102,28 @@ function MyPosts() {
     return (
         <div className='container'>
             <h2>Your posts</h2>
-            <div>
-            <Link
-                className="btn btn-light" 
-                to="/new-post" 
-                title='Click to create new post'>
-                    Create new post
-            </Link>
-            <button 
-                className="btn btn-danger"
-                onClick={deleteSelectedPosts}
-                title='Click to delete selected posts'
-                disabled={isDeleteAble}>
-                Delete
-            </button>
-            <input
-                type="text"
-                onChange={handleFilterChange}
-                placeholder='Search for title'
-            />
+            <div className='profileButtons'>
+                <Link
+                    className="btn btn-light" 
+                    to="/new-post" 
+                    title='Click to create new post'>
+                        Create new post
+                </Link>
+                <button 
+                    className="btn btn-danger"
+                    onClick={deleteSelectedPosts}
+                    title='Click to delete selected posts'
+                    disabled={isDeleteAble}>
+                    Delete
+                </button>
+                <input
+                    type="text"
+                    onChange={handleFilterChange}
+                    placeholder='Search for title'
+                />
             </div>
             <DataTable
+                customStyles={tableStyle}
                 columns={columns}
                 data={filteredText}
                 selectableRows

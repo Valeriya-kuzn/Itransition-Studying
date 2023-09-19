@@ -58,7 +58,7 @@ function Login({ user, setUser }) {
             </form>
             <div>
                 <div>Don't have an account?</div>
-                <Link className = "btn btn-light" to="/registration">Sign up</Link>
+                <Link className = "btn btn-light shortlink" to="/registration">Sign up</Link>
             </div>
         </div>
     )

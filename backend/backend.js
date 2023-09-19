@@ -98,17 +98,31 @@ app.post('/backend/edit-post/:post_id', upload.single('file'), (req, res) => {
     }
 
     if (title && type && creation && content) {
-        connection.query(
-            'UPDATE posts SET post_title = ?, post_type = ?, post_creation = ?, post_content = ?, photo_path = ? WHERE post_id = ?',
-            [title, type, creation, content, photo_path, post_id],
-            (err, results) => {
-                if (err) {
-                    res.json({success: false, status: 'Please enter all data. Check all fields and try again.'});
-                } else {
-                    res.json({success: true, status: 'Your post successfully updated'});
+        if (photo_path) {
+            connection.query(
+                'UPDATE posts SET post_title = ?, post_type = ?, post_creation = ?, post_content = ?, photo_path = ? WHERE post_id = ?',
+                [title, type, creation, content, photo_path, post_id],
+                (err, results) => {
+                    if (err) {
+                        res.json({success: false, status: 'Please enter all data. Check all fields and try again.'});
+                    } else {
+                        res.json({success: true, status: 'Your post successfully updated'});
+                    }
                 }
-            }
-        );
+            );
+        } else {
+            connection.query(
+                'UPDATE posts SET post_title = ?, post_type = ?, post_creation = ?, post_content = ? WHERE post_id = ?',
+                [title, type, creation, content, post_id],
+                (err, results) => {
+                    if (err) {
+                        res.json({success: false, status: 'Please enter all data. Check all fields and try again.'});
+                    } else {
+                        res.json({success: true, status: 'Your post successfully updated'});
+                    }
+                }
+            );
+        }
     } else {
         res.json({success: false, status: 'Please enter all data. Check all fields and try again.'});
     }
