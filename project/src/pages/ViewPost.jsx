@@ -14,7 +14,7 @@ function ViewPost({ user }) {
         if (location.state && location.state.post) {
             setPost(location.state.post);
         } else {
-            axios.get(`http://localhost:3001/backend/view-post/${post_id}`)
+            axios.get(`https://course-project-e5ui.onrender.com/backend/view-post/${post_id}`)
             .then(response => {
                 setPost(response.data);
             })

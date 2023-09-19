@@ -10,7 +10,7 @@ function Home() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/backend/posts');
+                const response = await axios.get('https://course-project-e5ui.onrender.com/backend/posts');
                 setPost(response.data);
             } catch (error) {
                 console.error('Error fetching post:', error);

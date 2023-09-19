@@ -12,7 +12,7 @@ function Logout({user, setUser}) {
     }
 
     const logOut = () => {
-        axios.post('http://localhost:3001/backend/logout')
+        axios.post('https://course-project-e5ui.onrender.com/backend/logout')
         .then(response => {
             handleLogout();
             navigate('/login');

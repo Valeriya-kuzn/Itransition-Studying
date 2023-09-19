@@ -30,7 +30,7 @@ function EditPost({ user }) {
         formData.append('content', content);
         formData.append('file', file);
 
-        axios.post(`http://localhost:3001/backend/edit-post/${post_id}`, formData, {
+        axios.post(`https://course-project-e5ui.onrender.com/backend/edit-post/${post_id}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

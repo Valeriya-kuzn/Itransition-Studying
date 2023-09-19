@@ -70,7 +70,7 @@ function MyPosts() {
     }; 
 
     const fetchPosts = () => {
-        axios.get('http://localhost:3001/backend/myposts')
+        axios.get('https://course-project-e5ui.onrender.com/backend/myposts')
         .then(response => {
             setPosts(response.data);
             setFilteredText(response.data);
@@ -86,7 +86,7 @@ function MyPosts() {
 
     const deleteSelectedPosts = () => {
         axios
-            .delete('http://localhost:3001/backend/posts/delete', {
+            .delete('https://course-project-e5ui.onrender.com/backend/posts/delete', {
                 data: { postIds: selectedPosts },
             })
             .then((response) => {

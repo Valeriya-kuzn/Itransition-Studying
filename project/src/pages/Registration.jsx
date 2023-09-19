@@ -16,7 +16,7 @@ function Registration({ user }) {
         formData.append('email', email);
         formData.append('password', password);
 
-        axios.post('http://localhost:3001/backend/registration', formData, {
+        axios.post('https://course-project-e5ui.onrender.com/backend/registration', formData, {
             headers: {
                 'Content-Type': 'application/json'
             }
