@@ -41,16 +41,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const connection = mysql.createConnection({
-    port: 3306,
-    host: 'sql11.freemysqlhosting.net',
-    user: 'sql11647463',
-    password: 'UALPZFXwdy',
-    database: 'sql11647463'
-});
-
-connection.connect();
-
 app.post('/backend/newpost', upload.single('file'), (req, res) => {
     const title = req.body.title;
     const type = req.body.type;
@@ -260,6 +250,16 @@ app.get('/backend/access', (req, res) => {
         res.status(401).send('Unauthorized');
     }
 });
+
+const connection = mysql.createConnection({
+    port: 3306,
+    host: 'sql11.freemysqlhosting.net',
+    user: 'sql11647463',
+    password: 'UALPZFXwdy',
+    database: 'sql11647463'
+});
+
+connection.connect();
 
 app.listen(port, () => {
     console.log(`Server is listening`);
