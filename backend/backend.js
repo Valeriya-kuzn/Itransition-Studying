@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 const path = require('path');
 const app = express();
+const port = 80;
 const serverPath = 'https://course-project-e5ui.onrender.com/';
 
 app.use(cookieParser());
