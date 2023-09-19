@@ -22,8 +22,8 @@ app.use(session({
 }));
 
 app.use(cors({
-    origin: 'course-project-frontend.onrender.com',
-    methods: ['POST', 'GET', 'DELETE'],
+    origin: 'https://course-project-frontend.onrender.com',
+    methods: ['OPTIONS','POST', 'GET', 'DELETE'],
     credentials: true
 }));
 
