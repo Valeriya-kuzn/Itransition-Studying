@@ -22,7 +22,7 @@ app.use(session({
 }));
 
 app.use(cors({
-    origin: 'https://course-project-frontend.onrender.com',
+    origin: 'https://itransition-studying.vercel.app/registration',
     methods: ['OPTIONS','POST', 'GET', 'DELETE'],
     credentials: true
 }));
