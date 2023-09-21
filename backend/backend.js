@@ -214,7 +214,7 @@ app.get('/backend/myposts', (req, res) => {
             }
         });
     } else {
-        res.status(500).send('Error request');
+        res.status(401).send('You are not authorize');
     }
 });
 
