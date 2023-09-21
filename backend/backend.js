@@ -253,10 +253,10 @@ app.get('/backend/access', (req, res) => {
 
 const connection = mysql.createConnection({
     port: 3306,
-    host: 'sql11.freemysqlhosting.net',
-    user: 'sql11647463',
-    password: 'UALPZFXwdy',
-    database: 'sql11647463'
+    host: 'sql.freedb.tech',
+    user: 'freedb_useruser',
+    password: '38r!r2K8ApCwGT&',
+    database: 'freedb_IT-studying'
 });
 
 connection.connect();
