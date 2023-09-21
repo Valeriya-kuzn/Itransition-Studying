@@ -202,7 +202,7 @@ app.get('/backend/posts', (req, res) => {
     });
 });
 
-app.get('/backend/myposts', (req, res) => {
+app.post('/backend/myposts', (req, res) => {
     const user = req.body.user;
 
     connection.query(
