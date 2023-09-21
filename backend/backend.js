@@ -2,13 +2,24 @@ const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
 const session = require('express-session');
-const store = new session.MemoryStore();
+const MySQLStore = require('express-mysql-session')(session);
 const cookieParser = require('cookie-parser');
 const mysql = require('mysql2');
 const path = require('path');
 const app = express();
 const port = 80;
 const serverPath = 'https://course-project-e5ui.onrender.com/';
+
+const sessionStore = new MySQLStore({
+    host: 'sql.freedb.tech',
+    port: 3306,
+    user: 'freedb_useruser',
+    password: '38r!r2K8ApCwGT&',
+    database: 'freedb_useruser',
+    clearExpired: true,
+    checkExpirationInterval: 900000,
+    expiration: 86400000
+});
 
 app.use(cookieParser());
 
@@ -19,7 +30,7 @@ app.use(session({
     cookie: {
         maxAge: 1000 * 60 * 60 * 24
     },
-    store
+    store: sessionStore
 }));
 
 app.use(cors({
