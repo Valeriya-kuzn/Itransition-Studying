@@ -5,7 +5,6 @@ import DataTable from 'react-data-table-component';
 import { tableStyle } from '../UI/tableStyle';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import Cookies from 'js-cookie';
 
 function MyPosts() {
     const [posts, setPosts] = useState([]);
@@ -73,7 +72,6 @@ function MyPosts() {
     axios.defaults.withCredentials = true
 
     const fetchPosts = () => {
-        console.log(JSON.parse(Cookies.get('user')))
         axios.get('https://course-project-e5ui.onrender.com/backend/myposts')
         .then(response => {
             setPosts(response.data);

@@ -15,7 +15,7 @@ function Profile({ user }) {
   return (
       <div className = 'container' key={'my-reviews-page-key'}>
           <ProfileData user={user}/>
-          <MyPosts />
+          <MyPosts user={user}/>
       </div>
   )
 }
