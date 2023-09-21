@@ -22,13 +22,10 @@ app.use(session({
 }));
 
 app.use(cors({
+    origin: 'https://itransition-studying.vercel.app',
+    methods: ['OPTIONS','POST', 'GET', 'DELETE'],
+    credentials: true
 }));
-
-// app.use(function (request, response, next) {
-//     response.header("Access-Control-Allow-Origin", "https://itransition-studying.vercel.app");
-//     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-//   });  
 
 app.use(express.static('public'));
 
