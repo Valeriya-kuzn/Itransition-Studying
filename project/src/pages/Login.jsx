@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-function Login({ user, setUser }) {
+function Login({ user, setUser, token, setToken }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -15,9 +15,9 @@ function Login({ user, setUser }) {
         }
     }, [navigate, user]);
 
-    const handleLogin = (userData) => {
-        Cookies.set('user', JSON.stringify(userData), { expires: 7 });
-        setUser(userData);
+    const handleLogin = (token, user) => {
+        Cookies.set('token', JSON.stringify(token), { expires: 7 });
+        setUser(user);
     };
 
     const handleSubmit = (e) => {
@@ -36,8 +36,7 @@ function Login({ user, setUser }) {
             }
         })
         .then(response => {
-            console.log(response.data.user)
-            handleLogin(response.data.user);
+            handleLogin(response.data.token, response.data.user);
             navigate('/profile');
         })
         .catch(error => {
