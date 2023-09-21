@@ -15,7 +15,7 @@ const sessionStore = new MySQLStore({
     port: 3306,
     user: 'freedb_useruser',
     password: '38r!r2K8ApCwGT&',
-    database: 'freedb_useruser',
+    database: 'freedb_IT-studying',
     clearExpired: true,
     checkExpirationInterval: 900000,
     expiration: 86400000
