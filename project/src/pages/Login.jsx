@@ -36,6 +36,7 @@ function Login({ user, setUser }) {
             }
         })
         .then(response => {
+            console.log(response.data.user)
             handleLogin(response.data.user);
             navigate('/profile');
         })
