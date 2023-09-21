@@ -17,7 +17,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         secure: true,
-        maxAge: new Date(Date.now() + (60 * 1000 * 1))
+        maxAge: 1000 * 60 * 60 * 24
     }
 }));
 
