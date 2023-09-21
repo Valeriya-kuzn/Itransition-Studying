@@ -23,7 +23,8 @@ app.use(session({
 
 app.use(cors({
     origin: 'https://itransition-studying.vercel.app',
-    methods: ['OPTIONS','POST', 'GET', 'DELETE']
+    methods: ['OPTIONS','POST', 'GET', 'DELETE'],
+    credentials: true
 }));
 
 app.use(express.static('public'));
