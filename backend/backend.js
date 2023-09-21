@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
 const session = require('express-session');
-const MySQLStore = require('express-mysql-session')(session);
+const MySQLStore = require('express-mysql-session');
 const cookieParser = require('cookie-parser');
 const mysql = require('mysql2');
 const path = require('path');
@@ -64,20 +64,26 @@ app.post('/backend/newpost', upload.single('file'), (req, res) => {
     photo_path = serverPath + req.file.path.replace(/\\/g, '/').slice(7);
     }
 
-    if (title && type && creation && content) {
-        connection.query(
-            'INSERT INTO posts (user_id, post_title, post_type, post_creation, post_content, photo_path) VALUES (?, ?, ?, ?, ?, ?)',
-            [req.session.user.user_id, title, type, creation, content, photo_path],
-            (err, results) => {
-                if (err) {
-                    res.status(500).send('Error creating new post');
-                } else {
-                    res.json({success: true, status: 'New post successfully created'});
+    console.log(req.session.user)
+
+    if (req.session.user) {
+        if (title && type && creation && content) {
+            connection.query(
+                'INSERT INTO posts (user_id, post_title, post_type, post_creation, post_content, photo_path) VALUES (?, ?, ?, ?, ?, ?)',
+                [req.session.user.user_id, title, type, creation, content, photo_path],
+                (err, results) => {
+                    if (err) {
+                        res.status(500).send('Error creating new post');
+                    } else {
+                        res.json({success: true, status: 'New post successfully created'});
+                    }
                 }
-            }
-        );
+            );
+        } else {
+            res.json({success: false, status: 'Please enter all data. Check all fields and try again.'});
+        }
     } else {
-        res.json({success: false, status: 'Please enter all data. Check all fields and try again.'});
+        res.status(401).send('Unauthorized');
     }
 });
 
@@ -202,21 +208,22 @@ app.get('/backend/posts', (req, res) => {
     });
 });
 
-app.post('/backend/myposts', (req, res) => {
-    const user = req.body.user;
-    console.log(user)
-
-    connection.query(
-        'SELECT * FROM posts WHERE user_id = ?',
-        [user.id],
-        (err, results) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Error request');
-        } else {
-            res.json(results);
-        }
-    });
+app.get('/backend/myposts', (req, res) => {
+    if (req.session.user) {
+        connection.query(
+            'SELECT * FROM posts WHERE user_id = ?',
+            [req.session.user.user_id],
+            (err, results) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error request');
+            } else {
+                res.json(results);
+            }
+        });
+    } else {
+        res.status(401).send('You are not authorize');
+    }
 });
 
 app.get('/backend/view-post/:post_id', (req, res) => {
