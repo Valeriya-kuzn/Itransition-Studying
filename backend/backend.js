@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
 const session = require('express-session');
+const store = new session.MemoryStore();
 const cookieParser = require('cookie-parser');
 const mysql = require('mysql2');
 const path = require('path');
@@ -16,9 +17,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: true,
         maxAge: 1000 * 60 * 60 * 24
-    }
+    },
+    store
 }));
 
 app.use(cors({
@@ -161,6 +162,7 @@ app.post('/backend/login', (req, res) => {
                             'UPDATE users SET last_login_date = NOW() WHERE user_id = ?',
                             [user.user_id]
                         );
+                        req.session.authenticated = true;
                         req.session.user = user;
                         console.log(req.session.user);
                         res.json({user : user});
