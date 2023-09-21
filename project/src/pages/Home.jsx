@@ -7,6 +7,8 @@ import ReactMarkdown from 'react-markdown';
 function Home() {
     const [post, setPost] = useState([]);
 
+    axios.defaults.withCredentials = true
+
     useEffect(() => {
         const fetchPosts = async () => {
             try {
