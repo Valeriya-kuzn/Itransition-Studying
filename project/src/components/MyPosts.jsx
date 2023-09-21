@@ -69,6 +69,8 @@ function MyPosts() {
         setFilteredText(newPosts);
     }; 
 
+    axios.defaults.withCredentials = true
+
     const fetchPosts = () => {
         axios.get('https://course-project-e5ui.onrender.com/backend/myposts')
         .then(response => {

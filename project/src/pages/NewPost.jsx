@@ -22,6 +22,8 @@ function NewPost({ user }) {
         formData.append('content', content);
         formData.append('file', file);
 
+        axios.defaults.withCredentials = true;
+
         axios.post('https://course-project-e5ui.onrender.com/backend/newpost', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
