@@ -203,9 +203,11 @@ app.get('/backend/posts', (req, res) => {
 });
 
 app.get('/backend/myposts', (req, res) => {
+    const user = req.body.user;
+
     connection.query(
         'SELECT * FROM posts WHERE user_id = ?',
-        [req.session.user.user_id],
+        [user.id],
         (err, results) => {
         if (err) {
             console.error(err);
