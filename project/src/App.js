@@ -14,7 +14,14 @@ import Profile from './pages/Profile.jsx';
 
 function App() {
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState(Cookies.get('token'));
+
+    useEffect(() => {
+        const userCookie = Cookies.get('user');
+    
+        if (userCookie) {
+          setUser(JSON.parse(userCookie));
+        }
+      }, []);
 
     axios.defaults.withCredentials = true
 
