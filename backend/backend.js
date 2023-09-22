@@ -21,10 +21,10 @@ const sessionStore = new MySQLStore({
     expiration: 86400000
 });
 
-app.use(cookieParser());
+app.use(cookieParser('ubjlfhabfg12'));
 
 app.use(session({
-    secret: 'session',
+    secret: 'ubjlfhabfg12',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -175,6 +175,7 @@ app.post('/backend/login', (req, res) => {
                         );
                         req.session.authenticated = true;
                         req.session.user = user;
+                        req.session.save();
                         res.cookie('token', user.user_id, { maxAge: 3600000 });
                         res.json({user : user});
                     } else {
