@@ -7,7 +7,7 @@ function Logout({user, setUser}) {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        Cookies.remove('token');
+        Cookies.remove();
         setUser(null);
     }
 

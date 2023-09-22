@@ -64,13 +64,11 @@ app.post('/backend/newpost', upload.single('file'), (req, res) => {
     photo_path = serverPath + req.file.path.replace(/\\/g, '/').slice(7);
     }
 
-    console.log(req.session.user)
-
-    if (req.session.user) {
+    if (req.cookies.token) {
         if (title && type && creation && content) {
             connection.query(
                 'INSERT INTO posts (user_id, post_title, post_type, post_creation, post_content, photo_path) VALUES (?, ?, ?, ?, ?, ?)',
-                [req.session.user.user_id, title, type, creation, content, photo_path],
+                [req.cookies.token.user_id, title, type, creation, content, photo_path],
                 (err, results) => {
                     if (err) {
                         res.status(500).send('Error creating new post');
@@ -175,7 +173,6 @@ app.post('/backend/login', (req, res) => {
                         );
                         req.session.authenticated = true;
                         req.session.user = user;
-                        console.log('Login log: ', req.session.user, user)
                         res.cookie('token', req.session.user, { maxAge: 3600000, sameSite: 'none', secure: true });
                         res.json({user : user});
                     } else {
@@ -206,7 +203,6 @@ app.get('/backend/posts', (req, res) => {
 });
 
 app.get('/backend/myposts', (req, res) => {
-    console.log('myposts ',req.cookies.token,req.session.user)
     if (req.cookies.token) {
         connection.query(
             'SELECT * FROM posts WHERE user_id = ?',
