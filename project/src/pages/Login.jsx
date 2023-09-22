@@ -15,11 +15,6 @@ function Login({ user, setUser, token, setToken }) {
         }
     }, [navigate, user]);
 
-    const handleLogin = (token, user) => {
-        Cookies.set('token', JSON.stringify(token), { expires: 7 });
-        setUser(user);
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -37,8 +32,9 @@ function Login({ user, setUser, token, setToken }) {
         })
         .then(response => {
             console.log('login response: ', response);
-            setToken(response.data.token);
-            handleLogin(response.data.token, response.data.user);
+            setToken(Сookies.get('token'));
+            Cookies.set('token', token, { expires: 7 });
+            setUser(response.data.user);
             navigate('/profile');
         })
         .catch(error => {

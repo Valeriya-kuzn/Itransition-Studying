@@ -73,11 +73,7 @@ function MyPosts({ token }) {
 
     const fetchPosts = () => {
         console.log(token);
-        axios.get('https://course-project-e5ui.onrender.com/backend/myposts', {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
-        })
+        axios.get('https://course-project-e5ui.onrender.com/backend/myposts')
         .then(response => {
             setPosts(response.data);
             setFilteredText(response.data);

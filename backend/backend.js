@@ -175,7 +175,7 @@ app.post('/backend/login', (req, res) => {
                         );
                         req.session.authenticated = true;
                         req.session.user = user;
-                        // res.cookie('token', user.user_id, { maxAge: 3600000 });
+                        res.cookie('token', user.user_id, { maxAge: 3600000 });
                         res.json({user : user});
                     } else {
                         res.status(401).send('Incorrect password');
@@ -187,12 +187,8 @@ app.post('/backend/login', (req, res) => {
 });
 
 app.post('/backend/logout', (req, res) => {
-    if (req.session.user) {
-        req.session.user = null;
-        res.json({success : true});
-    } else {
-        res.status(401).send('You are not authorize');
-    }
+    res.clearCookie('token');
+    res.json({Logout : 'You are logged out.'});
 });
 
 app.get('/backend/posts', (req, res) => {
@@ -209,7 +205,7 @@ app.get('/backend/posts', (req, res) => {
 });
 
 app.get('/backend/myposts', (req, res) => {
-    if (req.session.user) {
+    if (req.cookies.token = req.session.user.user_id) {
         connection.query(
             'SELECT * FROM posts WHERE user_id = ?',
             [req.session.user.user_id],
