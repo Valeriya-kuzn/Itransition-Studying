@@ -3,7 +3,7 @@ import ProfileData from '../components/ProfileData.jsx';
 import MyPosts from '../components/MyPosts.jsx';
 import { useNavigate } from 'react-router-dom';
 
-function Profile({ user, token, setToken }) {
+function Profile({ user }) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function Profile({ user, token, setToken }) {
   return (
       <div className = 'container' key={'my-reviews-page-key'}>
           <ProfileData user={user}/>
-          <MyPosts user={user} token={token}/>
+          <MyPosts user={user}/>
       </div>
   )
 }

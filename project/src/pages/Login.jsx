@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-function Login({ user, setUser, token, setToken }) {
+function Login({ user, setUser }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -31,7 +31,6 @@ function Login({ user, setUser, token, setToken }) {
             }
         })
         .then(response => {
-            console.log('login response: ', response);
             Cookies.set('token', response.data.user, { expires: 7 });
             setUser(response.data.user);
             navigate('/profile');

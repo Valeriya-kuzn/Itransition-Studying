@@ -6,7 +6,7 @@ import { tableStyle } from '../UI/tableStyle';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
-function MyPosts({ token }) {
+function MyPosts() {
     const [posts, setPosts] = useState([]);
     const [filteredText, setFilteredText] = useState([]);
     const [selectedPosts, setSelectedPosts] = useState([]);
@@ -72,7 +72,6 @@ function MyPosts({ token }) {
     axios.defaults.withCredentials = true
 
     const fetchPosts = () => {
-        console.log(token);
         axios.get('https://course-project-e5ui.onrender.com/backend/myposts')
         .then(response => {
             setPosts(response.data);

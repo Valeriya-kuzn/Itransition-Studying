@@ -16,7 +16,7 @@ function App() {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const userCookie = Cookies.get('user');
+        const userCookie = Cookies.get('token');
     
         if (userCookie) {
           setUser(JSON.parse(userCookie));
@@ -30,10 +30,10 @@ function App() {
             <Navigation user={user} setUser={setUser}/>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/profile" element={<Profile user={user} token={token}/>}/>
-                <Route path="/new-post" element={<NewPost user={user} token={token} setToken={setToken}/>} />
+                <Route path="/profile" element={<Profile user={user}/>}/>
+                <Route path="/new-post" element={<NewPost user={user}/>} />
                 <Route path='/registration' element={<Registration user={user}/>}/>
-                <Route path='/login' element={<Login user={user} setUser={setUser} token={token} setToken={setToken}/>}/>
+                <Route path='/login' element={<Login user={user} setUser={setUser}/>}/>
                 <Route path='/view-post/:post_id' element={<ViewPost user={user}/>}/>
                 <Route path='/edit-post/:post_id' element={<EditPost user={user}/>}/>
             </Routes>
