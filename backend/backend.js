@@ -176,7 +176,7 @@ app.post('/backend/login', (req, res) => {
                         req.session.authenticated = true;
                         req.session.user = user;
                         console.log('Login log: ', req.session.user, user)
-                        res.cookie('token', req.session.user, { maxAge: 3600000 });
+                        res.cookie('token', req.session.user, { maxAge: 3600000, sameSite: 'none', secure: true });
                         res.json({user : user});
                     } else {
                         res.status(401).send('Incorrect password');
