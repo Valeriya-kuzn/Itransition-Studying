@@ -176,6 +176,7 @@ app.post('/backend/login', (req, res) => {
                         req.session.authenticated = true;
                         req.session.user = user;
                         req.session.save();
+                        console.log(user.user_id)
                         res.cookie('token', user.user_id, { maxAge: 3600000 });
                         res.json({user : user});
                     } else {
@@ -189,7 +190,7 @@ app.post('/backend/login', (req, res) => {
 
 app.post('/backend/logout', (req, res) => {
     res.clearCookie('token');
-    res.json({Logout : 'You are logged out.'});
+    res.json({success : true});
 });
 
 app.get('/backend/posts', (req, res) => {
