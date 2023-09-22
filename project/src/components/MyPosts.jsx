@@ -72,9 +72,10 @@ function MyPosts({ token }) {
     axios.defaults.withCredentials = true
 
     const fetchPosts = () => {
+        console.log(token);
         axios.get('https://course-project-e5ui.onrender.com/backend/myposts', {
             headers: {
-                Authorization: `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`,
             },
         })
         .then(response => {

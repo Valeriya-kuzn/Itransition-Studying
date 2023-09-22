@@ -36,6 +36,8 @@ function Login({ user, setUser, token, setToken }) {
             }
         })
         .then(response => {
+            console.log('login response: ', response);
+            setToken(res.data.token);
             handleLogin(response.data.token, response.data.user);
             navigate('/profile');
         })
