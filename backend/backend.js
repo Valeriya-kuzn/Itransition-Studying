@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const mysql = require('mysql2');
 const path = require('path');
 const app = express();
-const port = 80;
+const port = 10000;
 const serverPath = 'https://course-project-e5ui.onrender.com/';
 
 const sessionStore = new MySQLStore({
@@ -175,9 +175,8 @@ app.post('/backend/login', (req, res) => {
                         );
                         req.session.authenticated = true;
                         req.session.user = user;
-                        req.session.save();
-                        console.log(user.user_id)
-                        res.cookie('token', user.user_id, { maxAge: 3600000 });
+                        console.log('Login log: ', req.session.user, user)
+                        res.cookie('token', req.session.user, { maxAge: 3600000 });
                         res.json({user : user});
                     } else {
                         res.status(401).send('Incorrect password');
