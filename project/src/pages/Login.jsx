@@ -31,7 +31,7 @@ function Login({ user, setUser }) {
             }
         })
         .then(response => {
-            Cookies.set('token', response.data.user, { expires: 7 });
+            Cookies.set('token', JSON.stringify(response.data.user), { expires: 7 });
             setUser(response.data.user);
             navigate('/profile');
         })
