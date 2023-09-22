@@ -206,11 +206,11 @@ app.get('/backend/posts', (req, res) => {
 });
 
 app.get('/backend/myposts', (req, res) => {
-    console.log(req.cookies.token)
+    console.log('myposts ',req.cookies.token,req.session.user)
     if (req.cookies.token) {
         connection.query(
             'SELECT * FROM posts WHERE user_id = ?',
-            [req.session.user.user_id],
+            [req.cookies.token.user_id],
             (err, results) => {
             if (err) {
                 console.error(err);
