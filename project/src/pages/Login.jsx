@@ -32,9 +32,8 @@ function Login({ user, setUser, token, setToken }) {
         })
         .then(response => {
             console.log('login response: ', response);
-            const receivedToken = Cookies.get('token');
-            setToken(receivedToken);
-            Cookies.set('token', JSON.stringify(receivedToken), { expires: 7 });
+            setToken(Cookies.get('token'));
+            Cookies.set('token', token, { expires: 7 });
             setUser(response.data.user);
             navigate('/profile');
         })
