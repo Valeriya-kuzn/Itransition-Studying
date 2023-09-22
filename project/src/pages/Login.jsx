@@ -34,6 +34,7 @@ function Login({ user, setUser, token, setToken }) {
             console.log('login response: ', response);
             const receivedToken = Cookies.get('token');
             setToken(receivedToken);
+            Cookies.set('token', JSON.stringify(receivedToken), { expires: 7 });
             setUser(response.data.user);
             navigate('/profile');
         })
