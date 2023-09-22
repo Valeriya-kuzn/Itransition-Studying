@@ -206,7 +206,8 @@ app.get('/backend/posts', (req, res) => {
 });
 
 app.get('/backend/myposts', (req, res) => {
-    if (req.cookies.token = req.session.user.user_id) {
+    console.log(req.cookies.token)
+    if (req.cookies.token) {
         connection.query(
             'SELECT * FROM posts WHERE user_id = ?',
             [req.session.user.user_id],
