@@ -57,7 +57,6 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(firebaseApp);
 const storage = getStorage(firebaseApp);
 
 app.post('/backend/newpost', upload.single('file'), async (req, res) => {
