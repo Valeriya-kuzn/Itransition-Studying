@@ -5,10 +5,13 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const cookieParser = require('cookie-parser');
 const mysql = require('mysql2');
-const path = require('path');
+// const path = require('path');
 const app = express();
 const port = 10000;
 const serverPath = 'https://course-project-e5ui.onrender.com/';
+const { initializeApp, getAnalytics } = require("firebase/app");
+const { getStorage, ref, uploadBytes, getDownloadURL } = require("firebase/storage");
+require('dotenv').config();
 
 const sessionStore = new MySQLStore({
     host: 'sql.freedb.tech',
@@ -43,47 +46,111 @@ app.use(express.static('public'));
 
 app.use(express.json());
 
-const storage = multer.diskStorage({
-    destination: 'public/uploads', 
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + path.extname(file.originalname));
-    }
-});
+const firebaseConfig = {
+  apiKey: "AIzaSyBS9mVOKw1JhKChoitWTg9Rp8Zfb749Njo",
+  authDomain: "course-project-frontend.firebaseapp.com",
+  projectId: "course-project-frontend",
+  storageBucket: "course-project-frontend.appspot.com",
+  messagingSenderId: "891678546279",
+  appId: "1:891678546279:web:e9d5620d991b70316a77c2",
+  measurementId: "G-1WJZ1Y06ER"
+};
 
-const upload = multer({ storage: storage });
+const firebaseApp = initializeApp(firebaseConfig);
+const analytics = getAnalytics(firebaseApp);
+const storage = getStorage(firebaseApp);
 
-app.post('/backend/newpost', upload.single('file'), (req, res) => {
+app.post('/backend/newpost', upload.single('file'), async (req, res) => {
     const title = req.body.title;
     const type = req.body.type;
     const creation = req.body.creation;
     const content = req.body.content;
-    let photo_path;
 
-    if (req.file) {
-    photo_path = serverPath + req.file.path.replace(/\\/g, '/').slice(7);
-    }
+    let photo_path = '';
+
+    let dateTime = date.now();
 
     if (req.cookies.token) {
+        if (req.file) {
+            try {
+                const storageRef = ref(storage, `files/${req.file.originalname} + ' ' + ${dateTime}`);
+
+                await uploadBytes(storageRef, req.file.buffer, {
+                    contentType: req.file.mimetype
+                });
+
+                const downloadUrl = await getDownloadURL(storageRef);
+                photo_path = downloadUrl;
+
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                res.status(500).send('Error uploading file.');
+            }
+        } 
+    
         if (title && type && creation && content) {
             connection.query(
                 'INSERT INTO posts (user_id, post_title, post_type, post_creation, post_content, photo_path) VALUES (?, ?, ?, ?, ?, ?)',
                 [req.cookies.token.user_id, title, type, creation, content, photo_path],
                 (err, results) => {
                     if (err) {
-                        res.status(500).send('Error creating new post');
+                        console.error('Error creating new post:', err);
+                        res.status(500).send('Error creating new post.');
                     } else {
-                        res.json({success: true, status: 'New post successfully created'});
+                        res.json({ success: true, status: 'New post successfully created' });
                     }
                 }
             );
         } else {
-            res.json({success: false, status: 'Please enter all data. Check all fields and try again.'});
+            res.json({ success: false, status: 'Please enter all data. Check all fields and try again.' });
         }
     } else {
         res.status(401).send('Unauthorized');
     }
 });
+
+
+// const storage = multer.diskStorage({
+//     destination: 'public/uploads', 
+//     filename: (req, file, cb) => {
+//         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+//         cb(null, uniqueSuffix + path.extname(file.originalname));
+//     }
+// });
+
+// const upload = multer({ storage: storage });
+
+// app.post('/backend/newpost', upload.single('file'), (req, res) => {
+//     const title = req.body.title;
+//     const type = req.body.type;
+//     const creation = req.body.creation;
+//     const content = req.body.content;
+//     let photo_path;
+
+//     if (req.file) {
+//     photo_path = serverPath + req.file.path.replace(/\\/g, '/').slice(7);
+//     }
+
+//     if (req.cookies.token) {
+//         if (title && type && creation && content) {
+//             connection.query(
+//                 'INSERT INTO posts (user_id, post_title, post_type, post_creation, post_content, photo_path) VALUES (?, ?, ?, ?, ?, ?)',
+//                 [req.cookies.token.user_id, title, type, creation, content, photo_path],
+//                 (err, results) => {
+//                     if (err) {
+//                         res.status(500).send('Error creating new post');
+//                     } else {
+//                         res.json({success: true, status: 'New post successfully created'});
+//                     }
+//                 }
+//             );
+//         } else {
+//             res.json({success: false, status: 'Please enter all data. Check all fields and try again.'});
+//         }
+//     } else {
+//         res.status(401).send('Unauthorized');
+//     }
+// });
 
 app.post('/backend/edit-post/:post_id', upload.single('file'), (req, res) => {
     const { post_id } = req.params;
