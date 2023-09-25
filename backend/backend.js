@@ -58,6 +58,7 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const storage = getStorage(firebaseApp);
+const upload = multer({ storage: multer.memoryStorage() });
 
 app.post('/backend/newpost', upload.single('file'), async (req, res) => {
     const title = req.body.title;
